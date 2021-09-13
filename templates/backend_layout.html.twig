@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>{% block title %}DREAM MAKER ::{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="shortcut icon" href="{{ absolute_url(asset('/backoffice/images/logo.png')) }}">
+
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/plugins/animate/animate.css')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/css/bootstrap-material-design.min.css')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/css/icons.css')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/css/style.css')) }}" type="text/css">
+    {% block stylesheets %}{% endblock %}
+    <style>
+        #topnav .topbar-main .logo {
+            line-height: 50px;
+            float: left;
+        }
+
+        #topnav .topbar-main .logo-large {
+            position: absolute;
+            top: 10px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div id="preloader"><div id="status"><div class="spinner"></div></div></div>
+
+<header id="topnav">
+    <div class="topbar-main">
+        <div class="container-fluid">
+
+            <div class="logo">
+                <a href="{{ path('backend_dashboard') }}" class="logo">
+                    <img src="{{ absolute_url(asset('/backoffice/images/logo.png')) }}" alt="" height="100" class="logo-small">
+                    <img src="{{ absolute_url(asset('/backoffice/images/logo.png')) }}" alt="" class="logo-large">
+                </a>
+
+            </div>
+
+
+            <div class="menu-extras topbar-custom">
+
+                <ul class="list-inline float-right mb-0 ">
+
+                    <li class="list-inline-item dropdown notification-list">
+                        <div class="list-inline-item hide-phone app-search">
+                            <form role="search" class="">
+                                <div class="form-group pt-1">
+                                    <input type="text" class="form-control" placeholder="Recherche..">
+                                    <a href="#"><i class="fa fa-search"></i></a>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+
+                    <li class="list-inline-item dropdown notification-list">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <i class="fa fa-map-marker"></i>
+                        </a>
+                    </li>
+
+                    <li class="list-inline-item dropdown notification-list">
+                        # Inserer notification
+                    </li>
+                    <li class="list-inline-item dropdown notification-list">
+                        <div class="dropdown notification-list nav-pro-img">
+                            <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="false" aria-expanded="false">
+                                <img src="{{ absolute_url(asset('/backoffice/images/avatar.png')) }}" alt="user" class="rounded-circle">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                                <div class="dropdown-item noti-title">
+                                    <h5>Delrodie</h5>
+                                </div>
+                                <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Mot de passe</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#"><i class="mdi mdi-logout m-r-5 text-muted"></i> Deconnexion</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="menu-item list-inline-item">
+                        <a class="navbar-toggle nav-link" id="mobileToggle">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+
+    <div class="navbar-custom">
+        <div class="container-fluid">
+            <div id="navigation">
+                <ul class="navigation-menu text-center">
+
+                    <li class="has-submenu ">
+                        <a href="#"><i class="mdi mdi-view-dashboard"></i>Tableau de bord</a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="#">Statistiques</a></li>
+                                    <li><a href="#">Google Analytics</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#"><i class="mdi mdi-view-headline"></i>Label</a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="#">Artiste</a></li>
+                                    <li><a href="#">Album</a></li>
+                                    <li><a href="#">Genre</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu ">
+                        <a href="#"><i class="mdi mdi-shopping-music"></i>Precommande</a>
+                    </li>
+
+                    <li class="has-submenu ">
+                        <a href="#"><i class="mdi mdi-account-multiple-plus"></i>Vendeur</a>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#"><i class="mdi mdi-cloud-download"></i>CD</a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="#">Destockage</a></li>
+                                    <li><a href="#">Stickage</a></li>
+                                    <li><a href="#">Stockage</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="has-submenu">
+                        <a href="#"><i class="mdi mdi-calculator"></i>Comptabilité</a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="#">Vente</a></li>
+                                    <li><a href="#">Recouvrement</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <li class="has-submenu">
+                            <a href="#"><i class="mdi mdi-settings"></i>Paramètres</a>
+                            <ul class="submenu megamenu">
+                                <li>
+                                    <ul>
+                                        <li><a href="#">Activités</a></li>
+                                        <li><a href="#">Config</a></li>
+                                        <li><a href="#">Liens</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="has-submenu">
+                            <a href="#"><i class="mdi mdi-lock"></i>Sécurité</a>
+                            <ul class="submenu megamenu">
+                                <li>
+                                    <ul>
+                                        <li><a href="#">Utilisateurs</a></li>
+                                        <li><a href="#">Gestionnaires</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% block body %} {% endblock %}
+
+
+
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                © 2021 DREAM MAKER - GEDIS
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.min.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/popper.min.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/bootstrap-material-design.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/modernizr.min.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/detect.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/fastclick.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.slimscroll.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.blockUI.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/waves.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.nicescroll.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.scrollTo.min.js')) }}"></script>
+<script>
+    // topbar menu toggle for mobile/smaller devices
+    var mobileToggle = $('#mobileToggle');
+    var mobileToggle = $('#mobileToggle');
+    var fullScreenToggle = $("#btn-fullscreen");
+    var menuItems = $(".navigation-menu>li");
+    var menuSubItems = $(".navigation-menu li.has-submenu a[href='#']");
+    var navigationMenuItems = $(".navigation-menu a");
+
+    mobileToggle.on('click', function (e) {
+        $(this).toggleClass('open');
+        $('#navigation').slideToggle(400);
+        return false;
+    });
+
+    // menu items
+    menuItems.slice(-1).addClass('last-elements');
+
+    menuSubItems.on('click', function (e) {
+        if ($(window).width() < 992) {
+            e.preventDefault();
+            $(this).parent('li').toggleClass('open').find('.submenu:first').toggleClass('open');
+        }
+    });
+
+    //activate menu item by url
+    navigationMenuItems.each(function () {
+        if (this.href == window.location.href) {
+            $(this).parent().addClass("active"); // add active to li of the current link
+            $(this).parent().parent().parent().addClass("active"); // add active class to an anchor
+            $(this).parent().parent().parent().parent().parent().addClass("active"); // add active class to an anchor
+        }
+    });
+
+    //toggle full screen
+    var toggleFullscreen = function (e) {
+        fullScreenToggle.on("click", function (e) {
+            e.preventDefault();
+            if (!document.fullscreenElement && /* alternative standard method */ !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (document.cancelFullScreen) {
+                    document.cancelFullScreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                }
+            }
+            return false;
+        });
+    };
+</script>
+
+{% block javascripts %}{% endblock %}
+
+<script src="{{ absolute_url(asset('/backoffice/js/app.js')) }}"></script>
+
+</body>
+
+</html>

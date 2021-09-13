@@ -1,0 +1,321 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord{% endblock %}
+
+{% block body %}
+
+    <div class="wrapper dashborad-h">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Tableau de bord</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-xl-2">
+                    <div class="card bg-primary m-b-30">
+                        <div class="card-body">
+                            <div class="d-flex row">
+                                <div class="col-3 align-self-center">
+                                    <div class="round">
+                                        <i class="mdi mdi-account-multiple-plus"></i>
+                                    </div>
+                                </div>
+                                <div class="col-8 ml-auto align-self-center text-center">
+                                    <div class="m-l-10 text-white float-right">
+                                        <h5 class="mt-0 round-inner">{{  1200|number_format(0,'','.') }}</h5>
+                                        <p class="mb-0 ">Artistes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                    <div class="card bg-success m-b-30">
+                        <div class="card-body">
+                            <div class="d-flex row">
+                                <div class="col-3 align-self-center">
+                                    <div class="round">
+                                        <i class="mdi mdi-image-album"></i>
+                                    </div>
+                                </div>
+                                <div class="col-8 text-center ml-auto align-self-center">
+                                    <div class="m-l-10 text-white float-right">
+                                        <h5 class="mt-0 round-inner">{{  230|number_format(0,'','.') }}</h5>
+                                        <p class="mb-0 ">Albums</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+                <!-- Column -->
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                    <div class="card bg-warning m-b-30">
+                        <div class="card-body">
+                            <div class="d-flex row">
+                                <div class="col-3 align-self-center">
+                                    <div class="round ">
+                                        <i class="mdi mdi-album"></i>
+                                    </div>
+                                </div>
+                                <div class="col-8 ml-auto align-self-center text-center">
+                                    <div class="m-l-10 text-white float-right">
+                                        <h5 class="mt-0 round-inner">{{  2321|number_format(0,'','.') }}</h5>
+                                        <p class="mb-0 ">CD</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                    <div class="card bg-danger m-b-30">
+                        <div class="card-body">
+                            <div class="d-flex row">
+                                <div class="col-3 align-self-center">
+                                    <div class="round">
+                                        <i class="mdi mdi-ticket"></i>
+                                    </div>
+                                </div>
+                                <div class="col-8 ml-auto align-self-center text-center">
+                                    <div class="m-l-10 text-white float-right">
+                                        <h5 class="mt-0 round-inner">{{  23|number_format(0,'','.') }}</h5>
+                                        <p class="mb-0">Stickes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                    <div class="card bg-secondary m-b-30">
+                        <div class="card-body">
+                            <div class="d-flex row">
+                                <div class="col-3 align-self-center">
+                                    <div class="round ">
+                                        <i class="mdi mdi-ticket"></i>
+                                    </div>
+                                </div>
+                                <div class="col-8 ml-auto align-self-center text-center">
+                                    <div class="m-l-10 text-white float-right">
+                                        <h5 class="mt-0 round-inner">{{ 34|number_format(0,'','.') }}</h5>
+                                        <p class="mb-0 ">Non Sticker</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                    <div class="card bg-dark m-b-30">
+                        <div class="card-body">
+                            <div class="d-flex row">
+                                <div class="col-3 align-self-center">
+                                    <div class="round">
+                                        <i class="mdi mdi-shopping"></i>
+                                    </div>
+                                </div>
+                                <div class="col-8 ml-auto align-self-center text-center">
+                                    <div class="m-l-10 text-white float-right">
+                                        <h5 class="mt-0 round-inner">{{ 489|number_format(0,'','.') }}</h5>
+                                        <p class="mb-0">Vente</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-xl-5">
+                    <div class="card m-b-30">
+                        <div class="card-body metro-widget">
+                            <h5 class="header-title mt-0 pb-3">Statistics</h5>
+                            <div id="morris-bar-example"></div>
+                            <div class="row text-center d-flex justify-content-around">
+                                <div class="col-4">
+                                    <p class="mb-0 font-14">New Orders</p>
+                                    <div class="live-tile m-0 w-100" data-mode="carousel" data-direction="horizontal" data-delay="3900" data-height="10">
+                                        <div>
+                                            <small class="text-muted"> today</small>
+                                            <h3 class=" text-dark">1,088
+                                                <small>
+                                                    <i class="mdi mdi-menu-down text-danger"></i>
+                                                </small>
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted">yesterday</small>
+                                            <h3 class="text-dark">1,420
+                                                <small>
+                                                    <i class="mdi mdi-menu-up text-success"></i>
+                                                </small>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <p class="mb-0 font-14">Visits</p>
+                                    <div class="live-tile m-0 w-100" data-mode="carousel" data-direction="vertical" data-delay="3500" data-height="10">
+                                        <div>
+                                            <small class="text-muted"> today</small>
+                                            <h3 class=" text-dark">1,955</h3>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted">yesterday</small>
+                                            <h3 class="text-dark">2,091</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <p class="mb-0 font-14">Bounce Rate</p>
+                                    <div class="live-tile m-0 w-100" data-mode="carousel" data-direction="vertical" data-delay="4200" data-height="10">
+                                        <div>
+                                            <small class="text-muted">Minmum</small>
+                                            <h3 class=" text-dark">3.8 %
+                                                <small>
+                                                    <i class="mdi mdi-menu-up text-success"></i>
+                                                </small>
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted">Maximum</small>
+                                            <h3 class="text-dark">7.1 %
+                                                <small>
+                                                    <i class="mdi mdi-menu-down text-danger"></i>
+                                                </small>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-7">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <h5 class="header-title mt-0 pb-3">Revenue </h5>
+                            <div id="morris-area-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xl-6">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <h5 class="header-title mb-3 mt-0">CD mis en vente</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                            <tr>
+                                <th class="border-top-0 w-60">Pochettes</th>
+                                <th class="border-top-0">Artistes</th>
+                                <th class="border-top-0">Titres</th>
+                                <th class="border-top-0">Nombre</th>
+                                <th class="border-top-0">Montant</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <img class="" src="assets/images/products/pro1.png" alt="user" width="40"> </td>
+                                <td>
+                                    NOm artistes
+                                </td>
+                                <td>
+                                    <span class="badge badge-boxed  badge-success">Titre album</span>
+                                </td>
+                                <td>2</td>
+                                <td> $ 50</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img class="" src="assets/images/products/pro1.png" alt="user" width="40"> </td>
+                                <td>
+                                    NOm artistes
+                                </td>
+                                <td>
+                                    <span class="badge badge-boxed  badge-success">Titre album</span>
+                                </td>
+                                <td>2</td>
+                                <td> $ 50</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img class="" src="assets/images/products/pro1.png" alt="user" width="40"> </td>
+                                <td>
+                                    NOm artistes
+                                </td>
+                                <td>
+                                    <span class="badge badge-boxed  badge-success">Titre album</span>
+                                </td>
+                                <td>2</td>
+                                <td> $ 50</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img class="" src="assets/images/products/pro1.png" alt="user" width="40"> </td>
+                                <td> NOm artistes</td>
+                                <td><span class="badge badge-boxed  badge-success">Titre album</span></td>
+                                <td>2</td>
+                                <td> $ 50</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-6">
+            <div class="card m-b-30">
+                <div class="card-body new-user">
+                    <h5 class="header-title mb-3 mt-0">Derniers artistes</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                            <tr>
+                                <th class="border-top-0">Media</th>
+                                <th class="border-top-0">Artiste</th>
+                                <th class="border-top-0">Albums</th>
+                                <th class="border-top-0">Nombre</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><img class="rounded-circle" src="assets/images/users/avatar-2.jpg" alt="user" width="40"> </td>
+                                <td> <a href="javascript:void(0);">Ruby T. Curd</a></td>
+                                <td>Titre albums</td>
+                                <td>100</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('backoffice/plugins/carousel/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backoffice/plugins/carousel/owl.theme.default.min.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('backoffice/plugins/carousel/owl.carousel.min.js') }}"></script>
+{% endblock %}
