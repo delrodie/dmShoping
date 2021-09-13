@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>{% block title %}SECURITE :: {% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="shortcut icon" href="{{ absolute_url(asset('/backoffice/images/logo.png')) }}">
+
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/plugins/animate/animate.css')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/css/bootstrap-material-design.min.css')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/css/icons.css')) }}" type="text/css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/css/style.css')) }}" type="text/css">
+    {% block stylesheets %}{% endblock %}
+    <style>
+        .accountbg {
+            background: url("{{ absolute_url(asset('/backoffice/images/login_bg.jpg')) }}");
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-position: center center;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="accountbg"></div>
+<div class="wrapper-page">
+    <div class="display-table">
+        <div class="display-table-cell">
+            <diV class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{ absolute_url(asset('/backoffice/images/logo_dm.png')) }}" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                {% block body %}{% endblock %}
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </diV>
+        </div>
+    </div>
+</div>
+
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.min.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/popper.min.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/bootstrap-material-design.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/modernizr.min.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/detect.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/fastclick.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.slimscroll.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.blockUI.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/waves.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.nicescroll.js')) }}"></script>
+<script src="{{ absolute_url(asset('/backoffice/js/jquery.scrollTo.min.js')) }}"></script>
+
+{% block javascripts %}{% endblock %}
+
+<script src="{{ absolute_url(asset('/backoffice/js/app.js')) }}"></script>
+
+</body>
+
+</html>
