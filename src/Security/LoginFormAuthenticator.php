@@ -5,6 +5,7 @@ namespace App\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
@@ -24,11 +25,13 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     private $urlGenerator;
     private $security;
+    private $session;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, \App\Utilities\Security $security)
+    public function __construct(UrlGeneratorInterface $urlGenerator, \App\Utilities\Security $security, SessionInterface $session)
     {
         $this->urlGenerator = $urlGenerator;
         $this->security = $security;
+        $this->session = $session;
     }
 
     public function authenticate(Request $request): PassportInterface
@@ -50,6 +53,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     {
         // Mise a jour du nombre de connexion et de la date de la dernière connexion
         $this->security->connexion();
+
+        // Mise en session du token de modification du mot de passe
+        $this->security->session();
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);

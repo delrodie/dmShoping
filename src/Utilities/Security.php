@@ -2,12 +2,11 @@
 
 namespace App\Utilities;
 
-use App\Entity\Gestionnaire;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class Security
 {
@@ -15,13 +14,15 @@ class Security
     private $passwordEncoder;
     private $security;
     private $userRepository;
+    private $session;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordEncoder, \Symfony\Component\Security\Core\Security $security, UserRepository $userRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordEncoder, \Symfony\Component\Security\Core\Security $security, UserRepository $userRepository, SessionInterface $session)
     {
         $this->entityManager = $entityManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->security = $security;
         $this->userRepository = $userRepository;
+        $this->session = $session;
     }
 
     /**
@@ -61,6 +62,18 @@ class Security
         $this->entityManager->flush();
 
         return true;
+    }
+
+    public function session()
+    {
+        $tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz1234567890";
+        $tokenSession = null; $res=null;
+        for ($i=0; $i<25; $i++){
+            $res = $tab[rand(0,60)];
+            $tokenSession = $tokenSession.''.$res;
+        }
+
+        return $this->session->set('updatePassword', $tokenSession);
     }
 
 }
