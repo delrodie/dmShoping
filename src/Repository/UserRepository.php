@@ -36,6 +36,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+
+
+    /**
+     * @return int|mixed|string
+     */
+    public function findListWithoutDelrodie()
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.username <> :delrodie')
+            ->orderBy('u.username', 'ASC')
+            ->setParameter('delrodie', 'delrodie')
+            ->getQuery()->getResult();
+
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

@@ -117,7 +117,9 @@
                             <li>
                                 <ul>
                                     <li><a href="#">Statistiques</a></li>
-                                    <li><a href="#">Google Analytics</a></li>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <li><a href="#">Google Analytics</a></li>
+                                    {% endif %}
                                 </ul>
                             </li>
                         </ul>
@@ -135,40 +137,43 @@
                             </li>
                         </ul>
                     </li>
+                    {% if is_granted('ROLE_GESTION') %}
+                        <li class="has-submenu ">
+                            <a href="#"><i class="mdi mdi-shopping-music"></i>Precommande</a>
+                        </li>
 
-                    <li class="has-submenu ">
-                        <a href="#"><i class="mdi mdi-shopping-music"></i>Precommande</a>
-                    </li>
+                        <li class="has-submenu ">
+                            <a href="#"><i class="mdi mdi-account-multiple-plus"></i>Vendeur</a>
+                        </li>
 
-                    <li class="has-submenu ">
-                        <a href="#"><i class="mdi mdi-account-multiple-plus"></i>Vendeur</a>
-                    </li>
+                        <li class="has-submenu">
+                            <a href="#"><i class="mdi mdi-cloud-download"></i>CD</a>
+                            <ul class="submenu megamenu">
+                                <li>
+                                    <ul>
+                                        <li><a href="#">Destockage</a></li>
+                                        <li><a href="#">Stickage</a></li>
+                                        <li><a href="#">Stockage</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
 
-                    <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-cloud-download"></i>CD</a>
-                        <ul class="submenu megamenu">
-                            <li>
-                                <ul>
-                                    <li><a href="#">Destockage</a></li>
-                                    <li><a href="#">Stickage</a></li>
-                                    <li><a href="#">Stockage</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                    {% if is_granted('ROLE_FINANCE') %}
+                        <li class="has-submenu">
+                            <a href="#"><i class="mdi mdi-calculator"></i>Comptabilité</a>
+                            <ul class="submenu megamenu">
+                                <li>
+                                    <ul>
+                                        <li><a href="#">Vente</a></li>
+                                        <li><a href="#">Recouvrement</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
 
-
-                    <li class="has-submenu">
-                        <a href="#"><i class="mdi mdi-calculator"></i>Comptabilité</a>
-                        <ul class="submenu megamenu">
-                            <li>
-                                <ul>
-                                    <li><a href="#">Vente</a></li>
-                                    <li><a href="#">Recouvrement</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
 
 
                     {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -190,7 +195,7 @@
                             <ul class="submenu megamenu">
                                 <li>
                                     <ul>
-                                        <li><a href="#">Utilisateurs</a></li>
+                                        <li><a href="{{ path('admin_user_index') }}">Utilisateurs</a></li>
                                         <li><a href="#">Gestionnaires</a></li>
                                     </ul>
                                 </li>

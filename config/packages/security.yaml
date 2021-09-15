@@ -1,7 +1,10 @@
 security:
 
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
+        ROLE_VENDEUR: ROLE_USER
+        ROLE_GESTION: ROLE_VENDEUR
+        ROLE_FINANCE: ROLE_GESTION
+        ROLE_ADMIN: ROLE_FINANCE
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # https://symfony.com/doc/current/security/experimental_authenticators.html
@@ -41,7 +44,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/backend, roles: ROLE_ADMIN }
+        - { path: ^/backend, roles: ROLE_VENDEUR }
         - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
