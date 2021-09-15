@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Utilities\GestionLog;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminUserController extends AbstractController
 {
     private $passwordHash;
+    private $gestionLog;
 
-    public function __construct(UserPasswordHasherInterface $passwordHash)
+    public function __construct(UserPasswordHasherInterface $passwordHash, GestionLog $gestionLog)
     {
         $this->passwordHash = $passwordHash;
+        $this->gestionLog = $gestionLog;
     }
 
     /**
@@ -42,10 +45,16 @@ class AdminUserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // Ajout du log
+            $this->gestionLog->addLogger($this->log($user->getUserIdentifier())['ajout']);
+
             $this->addFlash('success', "L'utilisateur ".$user->getUserIdentifier()." a bien été enregistré");
 
             return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
+
+        // Ajout du log
+        $this->gestionLog->addLogger($this->log()['affichage']);
 
         return $this->renderForm('admin_user/index.html.twig', [
             'users' => $userRepository->findListWithoutDelrodie(),
@@ -105,6 +114,9 @@ class AdminUserController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
+            // Ajout du log
+            $this->gestionLog->addLogger($this->log($user->getUserIdentifier())['modif']);
+
             $this->addFlash('success', "L'utilisateur ".$user->getUserIdentifier()." a bien été modifié");
 
             return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
@@ -124,10 +136,29 @@ class AdminUserController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $user_deleted = $user->getUserIdentifier();
             $entityManager->remove($user);
             $entityManager->flush();
+
+            // Ajout du log
+            $this->gestionLog->addLogger($this->log($user_deleted)['sup']);
         }
 
         return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    protected function log($action=null)
+    {
+        $user = $this->getUser()->getUserIdentifier();
+        $date = date('Y-m-d H:i:s');
+        $val = [
+            'affichage' => $user." a visualisé la liste des utilisateurs le ".$date." via l'IP ",
+            'ajout' => $user." a enregistré l'utilisateur ".$action." le ".$date." via l'IP ",
+            'modif' => $user." a modifié l'utilisateur ".$action." le ".$date." via l'IP ",
+            'sup' => $user." a supprimé l'utilisateur ".$action." le ".$date." via l'IP ",
+        ];
+
+        return $val;
     }
 }

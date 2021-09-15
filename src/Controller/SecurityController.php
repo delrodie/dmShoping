@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Utilities\GestionLog;
 use App\Utilities\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,8 +47,13 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
+    public function logout(GestionLog $gestionLog)
     {
+
+        // Gestion du log
+        $str = $this->getUser(). " s'est deconnectédelroy@2020 le ".date('Y-m-d H:i:s')." via l'IP ";
+        $gestionLog->addLogger($str);
+
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

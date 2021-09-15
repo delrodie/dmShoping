@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Utilities\GestionLog;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,12 +27,17 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     private $urlGenerator;
     private $security;
     private $session;
+    /**
+     * @var GestionLog
+     */
+    private $gestionLog;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, \App\Utilities\Security $security, SessionInterface $session)
+    public function __construct(UrlGeneratorInterface $urlGenerator, \App\Utilities\Security $security, SessionInterface $session, GestionLog $gestionLog)
     {
         $this->urlGenerator = $urlGenerator;
         $this->security = $security;
         $this->session = $session;
+        $this->gestionLog = $gestionLog;
     }
 
     public function authenticate(Request $request): PassportInterface
@@ -56,6 +62,10 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         // Mise en session du token de modification du mot de passe
         $this->security->session();
+
+        // Gestion du log
+        $str = $request->request->get('username'). " s'est authentifié le ".date('Y-m-d H:i:s')." via l'IP ";
+        $this->gestionLog->addLogger($str);
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
