@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    <div class="row form-group">
+        <div class="col-sm-12 mb-3">{{ form_row(form.nom) }}</div>
+        <div class="col-sm-12 mb-3">{{ form_row(form.media) }}</div>
+    </div>
+    {{ form_widget(form) }}
+    <div class="text-right mt-5">
+        <a href="{{ path('backend_artiste_index') }}" class="btn btn-outline-secondary">Annuler</a>
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}
