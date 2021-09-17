@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SearchMonitoringType;
 use App\Utilities\GestionLog;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,17 +12,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class BackendMonitoringController extends AbstractController
 {
     /**
-     * @Route("/backend/monitoring", name="backend_monitoring")
+     * @Route("/backend/monitoring", name="backend_monitoring", methods={"GET","POST"})
      */
     public function index(Request $request, GestionLog $gestionLog): Response
     {
         // Si la date est defini par l'utilisateur alors formatter la date puis rechercher
-        // Sinon prendre la date du jour
-        $search = $request->get('search');
+        $form = $this->createForm(SearchMonitoringType::class);
+        $form->handleRequest($request);
+        $search = [];
+        if ($form->isSubmitted() && $form->isValid()){
+            // Sinon prendre la date du jour
+            $search = $request->request->get('search_monitoring')['date'];
+        }
+
 
         if ($search) {
-            $form = explode('/', $search);
-            $date = $form[0].'-'.$form[1].'-'.$form[2];
+            $date= $search;
         }
         else $date = date('Y-m-d');
 
@@ -38,9 +44,10 @@ class BackendMonitoringController extends AbstractController
             $fichier = $jsons;
         }
 
-        return $this->render('backend_monitoring/index.html.twig', [
+        return $this->renderForm('backend_monitoring/index.html.twig', [
             'fichiers' => $fichier,
             'date' => $date,
+            'form' => $form
         ]);
     }
 }
