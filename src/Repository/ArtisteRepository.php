@@ -19,6 +19,11 @@ class ArtisteRepository extends ServiceEntityRepository
         parent::__construct($registry, Artiste::class);
     }
 
+    public function liste()
+    {
+        return $this->createQueryBuilder('a')->orderBy('a.nom', 'ASC');
+    }
+
     // /**
     //  * @return Artiste[] Returns an array of Artiste objects
     //  */

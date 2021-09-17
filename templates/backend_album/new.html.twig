@@ -1,0 +1,83 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des albums{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 mt-5">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Gestion des albums</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+
+                            {% for label, messages in app.flashes(['success', 'warning']) %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ label }} alert-dismissible mg-b-0 fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+
+                            <h5 class="header-title mb-3 mt-0">Enregistrement</h5>
+                            <div class="row">
+                                <div class="col-sm-12 text-right mr-5 pr-5">
+                                    <a href="{{ path('backend_album_index') }}" class="btn btn-primary"><i class="fa fa-list"></i> Liste</a>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-12">
+                                    {{ include('backend_album/_form.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/plugins/dropify/css/dropify.min.css')) }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
+    <script src="{{ absolute_url(asset('/backoffice/plugins/dropify/js/dropify.min.js')) }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+    <script src="{{ absolute_url(asset('/backoffice/js/upload-init.js')) }}"></script>
+    <script>
+        // In your Javascript (external .js resource or <script> tag)
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+
+        // CKeditor
+        //let ClassicEditor;
+        ClassicEditor
+            //.create( document.querySelector( '#album_description' ) )
+        ;
+    </script>
+{% endblock %}

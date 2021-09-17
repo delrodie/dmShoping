@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+<div class="row form-group">
+    <div class="col-sm-6">{{ form_row(form.artiste) }}</div>
+    <div class="col-sm-6">{{ form_row(form.titre) }}</div>
+    <div class="col-sm-4 mt-3">{{ form_row(form.genre) }}</div>
+    <div class="col-sm-4 mt-3">{{ form_row(form.prixVente) }}</div>
+    <div class="col-sm-4 mt-3">{{ form_row(form.stock) }}</div>
+    <div class="col-sm-12 mt-3">{{ form_row(form.description) }}</div>
+    <div class="col-sm-6 mt-3">{{ form_row(form.pochette) }}</div>
+    <div class="col-sm-6 mt-5">
+        {% if album.pochette %}
+            <img src="{{ asset('upload/albums/'~ album.pochette) }}" alt="{{ album.titre }}" class="img-thumbnail" width="200">
+        {% endif %}
+    </div>
+</div>
+{{ form_widget(form) }}
+    <div class="text-right mt-5">
+        <a href="{{ path('backend_album_index') }}" class="btn btn-outline-secondary">Annuler</a>
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

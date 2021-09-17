@@ -19,6 +19,11 @@ class GenreRepository extends ServiceEntityRepository
         parent::__construct($registry, Genre::class);
     }
 
+    public function liste()
+    {
+        return $this->createQueryBuilder('g')->orderBy('g.libelle', "ASC");
+    }
+
     // /**
     //  * @return Genre[] Returns an array of Genre objects
     //  */

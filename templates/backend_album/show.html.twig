@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album{% endblock %}
+
+{% block body %}
+    <h1>Album</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ album.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ album.titre }}</td>
+            </tr>
+            <tr>
+                <th>PrixVente</th>
+                <td>{{ album.prixVente }}</td>
+            </tr>
+            <tr>
+                <th>NonSticke</th>
+                <td>{{ album.nonSticke }}</td>
+            </tr>
+            <tr>
+                <th>Sticke</th>
+                <td>{{ album.sticke }}</td>
+            </tr>
+            <tr>
+                <th>Distribue</th>
+                <td>{{ album.distribue }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ album.stock }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ album.description }}</td>
+            </tr>
+            <tr>
+                <th>Pochette</th>
+                <td>{{ album.pochette }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ album.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('backend_album_index') }}">back to list</a>
+
+    <a href="{{ path('backend_album_edit', {'id': album.id}) }}">edit</a>
+
+    {{ include('backend_album/_delete_form.html.twig') }}
+{% endblock %}

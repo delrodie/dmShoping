@@ -11,10 +11,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class GestionMedia
 {
     private $mediaArtiste;
+    private $mediaAlbum;
 
-    public function __construct($artisteDirectory)
+    public function __construct($artisteDirectory, $albumDirectory)
     {
         $this->mediaArtiste = $artisteDirectory;
+        $this->mediaAlbum = $albumDirectory;
     }
 
     /**
@@ -36,6 +38,7 @@ class GestionMedia
         // Deplacement du fichier dans le repertoire dedié
         try {
             if ($media === 'artiste') $file->move($this->mediaArtiste, $newFilename);
+            elseif ($media === 'album') $file->move($this->mediaAlbum, $newFilename);
             else $file->move($this->mediaArtiste, $newFilename);
         }catch (FileException $e){
 
@@ -54,6 +57,7 @@ class GestionMedia
     public function removeUpload($ancienMedia, $media = null)
     {
         if ($media === 'artiste') unlink($this->mediaArtiste.'/'.$ancienMedia);
+        elseif ($media === 'album') unlink($this->mediaAlbum.'/'.$ancienMedia);
         else return false;
 
         return true;

@@ -28,3 +28,4 @@ services:
     App\Utilities\GestionMedia:
         arguments:
             $artisteDirectory: '%kernel.project_dir%/public/upload/artistes'
+            $albumDirectory: '%kernel.project_dir%/public/upload/albums'
