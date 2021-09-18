@@ -19,6 +19,14 @@ class AlbumRepository extends ServiceEntityRepository
         parent::__construct($registry, Album::class);
     }
 
+    public function liste()
+    {
+        return $this->createQueryBuilder('a')->orderBy('a.titre', 'ASC');
+    }
+
+    /**
+     * @return int|mixed|string
+     */
     public function findList()
     {
         return $this

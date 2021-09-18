@@ -1,6 +1,6 @@
 {% extends 'backend_layout.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion des albums{% endblock %}
+{% block title %}{{ parent() }} Gestion des pressages{% endblock %}
 
 {% block body %}
     <div class="wrapper">
@@ -9,13 +9,13 @@
             <div class="row">
                 <div class="col-sm-12 mt-5">
                     <div class="page-title-box">
-                        <h4 class="page-title">Gestion des albums</h4>
+                        <h4 class="page-title">Gestion des pressages</h4>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-12 col-md-12">
+                <div class="col-sm-12 col-md-9">
                     <div class="card m-b-30">
                         <div class="card-body">
 
@@ -31,39 +31,27 @@
                             {% endfor %}
 
                             <h5 class="header-title mb-3 mt-0">Liste</h5>
-                            <div class="row">
-                                <div class="col-sm-12 text-right mr-5 pr-5">
-                                    <a href="{{ path('backend_album_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Ajouter</a>
-                                </div>
-                            </div>
                             <div class="table-responsive mt-5">
                                 <table id="liste" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th class="border-top-0 text-center">#</th>
                                         <th class="border-top-0 text-center">Artistes</th>
-                                        <th class="border-top-0 text-center">Titres</th>
-                                        <th class="border-top-0 text-center">Prix vente</th>
-                                        <th class="border-top-0 text-center">Non stickés</th>
-                                        <th class="border-top-0 text-center">Stickés</th>
-                                        <th class="border-top-0 text-center">Distribués</th>
-                                        <th class="border-top-0 text-center">Stock</th>
-                                        <th class="border-top-0 text-center">Action</th>
+                                        <th class="border-top-0 text-center">Albums</th>
+                                        <th class="border-top-0 text-center">Quantite</th>
+                                        <th class="border-top-0 text-center">Stock Final</th>
+                                        <th class="border-top-0 text-center">Date</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for album in albums %}
+                                    {% for list in lists %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
-                                            <td>{{ album.artiste.nom }}</td>
-                                            <td><a href="{{ path('backend_album_edit', {'id': album.id}) }}">{{ album.titre }}</a></td>
-                                            <td class="text-center">{{ album.prixVente|number_format(0,'','.') }}</td>
-                                            <td class="text-center">{{ album.nonSticke ? album.nonSticke : '0' }}</td>
-                                            <td class="text-center">{{ album.sticke ? album.sticke : '0' }}</td>
-                                            <td class="text-center">{{ album.distribue ? album.distribue : '0' }}</td>
-                                            <td class="text-center">{{ album.stock ? album.stock : '0' }}</td>
-                                            <td></td>
-
+                                            <td>{{ list.artiste }}</td>
+                                            <td><a href="{{ path('backend_pressage_edit', {'id': list.id}) }}">{{ list.album }}</a></td>
+                                            <td class="text-center">{{ list.qte }}</td>
+                                            <td class="text-center">{{ list.stockFinal ? list.stockFinal : '0' }}</td>
+                                            <td class="text-center">{{ list.date }}</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -72,7 +60,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-12 col-md-3">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <h5 class="header-title mb-3 mt-O">Enregistrement</h5>
+                            <div class="mt-5">
+                                {{ include('backend_pressage/_form.html.twig', {'button_label': 'Modifier'}) }}
 
+                                {{ include('backend_pressage/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -84,9 +83,9 @@
     {{ parent() }}
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/b-html5-1.7.1/datatables.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/css/datepicker.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/plugins/dropify/css/dropify.min.css')) }}">
 {% endblock %}
 
 {% block javascripts %}
@@ -96,10 +95,10 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.3.1/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/datatables.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
-    <script src="{{ absolute_url(asset('/backoffice/plugins/dropify/js/dropify.min.js')) }}"></script>
-    <script src="{{ absolute_url(asset('/backoffice/js/upload-init.js')) }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/datepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.fr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#liste').DataTable({
@@ -115,6 +114,7 @@
                     'pdfHtml5'
                 ]
             });
+            $('.select2').select2();
         } );
     </script>
 {% endblock %}
