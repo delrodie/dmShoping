@@ -14,7 +14,7 @@ class SearchMonitoringType extends AbstractType
     {
         $builder
             ->add('date', TextType::class,[
-                'attr'=>['class'=>'form-control datepicker-here', 'data-language' => 'fr', 'data-date-format'=>"yyyy-mm-dd", 'data-auto-close'=>true]
+                'attr'=>['class'=>'form-control datepicker-here', 'data-language' => 'fr', 'data-date-format'=>"yyyy-mm-dd", 'data-auto-close'=>true, 'autocomplete' => 'off']
             ])
         ;
     }

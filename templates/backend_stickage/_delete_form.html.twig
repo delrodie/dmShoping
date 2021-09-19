@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('backend_stickage_delete', {'id': stickage.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce stickage?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ stickage.id) }}">
+    <button class="btn btn-danger btn-raised mb-0">Supprimer</button>
+</form>

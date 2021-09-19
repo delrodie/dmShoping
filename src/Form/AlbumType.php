@@ -34,9 +34,9 @@ class AlbumType extends AbstractType
             //->add('sticke')
             //->add('distribue')
             ->add('stock', IntegerType::class,[
-                'attr'=>['class'=>'form-control', 'placeholder'=>"Quantité de CD", 'autocomplete' => 'off'],
+                'attr'=>['class'=>'form-control', 'placeholder'=>"Quantité en stock", 'autocomplete' => 'off', 'readonly'=>true],
                 'label'=>"Nombre de CD",
-                'required'=>false
+                'required'=>false,
             ])
             ->add('description', TextareaType::class,[
                 'attr'=>['class'=>'form-control']
