@@ -36,6 +36,7 @@
                                     <thead>
                                     <tr>
                                         <th class="border-top-0 text-center">#</th>
+                                        <th class="border-top-0 text-center">Matricule</th>
                                         <th class="border-top-0 text-center">Nom</th>
                                         <th class="border-top-0 text-center">Nombre d'album</th>
                                     </tr>
@@ -44,9 +45,9 @@
                                     {% for artiste in artistes %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
+                                            <td class="text-center">{{ artiste.matricule }}</td>
                                             <td><a href="{{ path('backend_artiste_edit', {'id': artiste.id}) }}">{{ artiste.nom }}</a></td>
-                                            <td class="text-center">{{ artiste.nombreAlbum ? artiste.nombreAlbum : '0' }}</td>
-
+                                            <td class="text-center"></td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>

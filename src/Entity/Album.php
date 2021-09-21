@@ -72,6 +72,21 @@ class Album
      */
     private $genre;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $reference;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $ecommerce;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $promotion;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -205,6 +220,42 @@ class Album
     public function setGenre(?Genre $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(?string $reference): self
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getEcommerce(): ?bool
+    {
+        return $this->ecommerce;
+    }
+
+    public function setEcommerce(?bool $ecommerce): self
+    {
+        $this->ecommerce = $ecommerce;
+
+        return $this;
+    }
+
+    public function getPromotion(): ?bool
+    {
+        return $this->promotion;
+    }
+
+    public function setPromotion(?bool $promotion): self
+    {
+        $this->promotion = $promotion;
 
         return $this;
     }

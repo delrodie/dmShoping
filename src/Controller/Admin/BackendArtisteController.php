@@ -7,6 +7,7 @@ use App\Form\ArtisteType;
 use App\Repository\ArtisteRepository;
 use App\Utilities\GestionLog;
 use App\Utilities\GestionMedia;
+use App\Utilities\Utility;
 use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,11 +21,13 @@ class BackendArtisteController extends AbstractController
 {
     private $gestionLog;
     private $gestionMedia;
+    private $utility;
 
-    public function __construct(GestionLog $gestionLog, GestionMedia $gestionMedia)
+    public function __construct(GestionLog $gestionLog, GestionMedia $gestionMedia, Utility $utility)
     {
         $this->gestionLog = $gestionLog;
         $this->gestionMedia = $gestionMedia;
+        $this->utility = $utility;
     }
 
     /**
@@ -55,6 +58,8 @@ class BackendArtisteController extends AbstractController
 
                 $artiste->setMedia($media);
             }
+
+            $artiste->setMatricule($this->utility->matricule());
 
             $entityManager->persist($artiste);
             $entityManager->flush();

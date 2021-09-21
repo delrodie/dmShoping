@@ -44,6 +44,11 @@ class Artiste
      */
     private $albums;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $matricule;
+
     public function __construct()
     {
         $this->albums = new ArrayCollection();
@@ -128,6 +133,18 @@ class Artiste
                 $album->setArtiste(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMatricule(): ?string
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(?string $matricule): self
+    {
+        $this->matricule = $matricule;
 
         return $this;
     }

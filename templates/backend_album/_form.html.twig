@@ -12,6 +12,16 @@
             <img src="{{ asset('upload/albums/'~ album.pochette) }}" alt="{{ album.titre }}" class="img-thumbnail" width="200">
         {% endif %}
     </div>
+    <div class="col-sm-12 checkbox mb-2 mt-3 ml-3">
+        <label>
+            {{ form_widget(form.ecommerce) }} E-commerce
+        </label>
+    </div>
+    <div class="col-sm-12 checkbox mb-2 ml-3">
+        <label>
+            {{ form_widget(form.promotion) }} Promotion
+        </label>
+    </div>
 </div>
 {{ form_widget(form) }}
     <div class="text-right mt-5">

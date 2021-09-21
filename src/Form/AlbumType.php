@@ -9,6 +9,7 @@ use App\Entity\Sygesca\Region;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -79,6 +80,16 @@ class AlbumType extends AbstractType
                 },
                 'choice_label' => 'libelle',
                 'label' => 'Genre musical'
+            ])
+            ->add('ecommerce', CheckboxType::class,[
+                'attr'=>['class' => 'custom-control-input'],
+                'label' => 'E-commerce',
+                'required'=>false,
+            ])
+            ->add('promotion', CheckboxType::class,[
+                'attr'=>['class' => 'custom-control-input'],
+                'label' => 'Promotion',
+                'required'=>'false'
             ])
         ;
     }
