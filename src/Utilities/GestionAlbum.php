@@ -3,6 +3,7 @@
 namespace App\Utilities;
 
 use App\Repository\AlbumRepository;
+use App\Repository\DestockageRepository;
 use App\Repository\PressageRepository;
 use App\Repository\StickageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,18 +15,21 @@ class GestionAlbum
     private $pressageRepository;
     private $entityManager;
     private $stickageRepository;
+    private $destockageRepository;
 
     public function __construct(
         AlbumRepository $albumRepository,
         PressageRepository $pressageRepository,
         EntityManagerInterface $entityManager,
-        StickageRepository $stickageRepository
+        StickageRepository $stickageRepository,
+        DestockageRepository $destockageRepository
     )
     {
         $this->albumRepository = $albumRepository;
         $this->pressageRepository = $pressageRepository;
         $this->entityManager = $entityManager;
         $this->stickageRepository = $stickageRepository;
+        $this->destockageRepository = $destockageRepository;
     }
 
     /**
@@ -169,7 +173,7 @@ class GestionAlbum
         return true;
     }
 
-    public function deleteStickage($album, int $qte)
+    public function deleteStickage($album, int $qte): bool
     {
         $nouveauNonSticke = (int) $album->getNonSticke() + $qte;
         $nouveauSticke = (int) $album->getSticke() - $qte;
@@ -178,6 +182,50 @@ class GestionAlbum
         $album->setSticke($nouveauSticke);
 
         $this->entityManager->flush();
+
+        return true;
+    }
+
+    /**
+     * Gestion des opérations sur la quantité stickée
+     *
+     * @param $album
+     * @param int $qte
+     * @param null $increase
+     * @return bool
+     */
+    public function toggleSticke($album, int $qte, $increase = null): bool
+    {
+        // Si fonction ajout actif alors augmenter la quantité
+        // Sinon la réduire
+        if ($increase)
+            $sticke = (int) $album->getSticke() + $qte;
+        else
+            $sticke = (int) $album->getSticke() - $qte;
+
+        $album->setSticke($sticke);
+        $this->entityManager->flush();
+
+        return true;
+    }
+
+    public function albumListDestickage()
+    {
+        $stickages = $this->destockageRepository->findListDestockage();
+        $lists=[]; $i=0;
+
+        foreach ($stickages as $stickage){
+            $lists[$i++]=[
+                'id' => $stickage->getId(),
+                'artiste' => $stickage->getAlbum()->getArtiste()->getNom(),
+                'album' => $stickage->getAlbum()->getTitre(),
+                'qte' => $stickage->getQuantite(),
+                'date' => $stickage->getDate(),
+                'motif' => $stickage->getMotif(),
+            ];
+        }
+
+        return $lists;
     }
 
 }

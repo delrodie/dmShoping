@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Destockage{% endblock %}
+
+{% block body %}
+    <h1>Create new Destockage</h1>
+
+    {{ include('backend_destockage/_form.html.twig') }}
+
+    <a href="{{ path('backend_destockage_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Destockage{% endblock %}
+
+{% block body %}
+    <h1>Destockage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ destockage.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ destockage.date }}</td>
+            </tr>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ destockage.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Motif</th>
+                <td>{{ destockage.motif }}</td>
+            </tr>
+            <tr>
+                <th>StickeFinal</th>
+                <td>{{ destockage.stickeFinal }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('backend_destockage_index') }}">back to list</a>
+
+    <a href="{{ path('backend_destockage_edit', {'id': destockage.id}) }}">edit</a>
+
+    {{ include('backend_destockage/_delete_form.html.twig') }}
+{% endblock %}
