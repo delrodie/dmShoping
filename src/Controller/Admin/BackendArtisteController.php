@@ -195,7 +195,7 @@ class BackendArtisteController extends AbstractController
      * @param null $action
      * @return string[]
      */
-    protected function log($action=null)
+    protected function log($action=null): array
     {
         $user = $this->getUser()->getUserIdentifier();
         $date = date('Y-m-d H:i:s');

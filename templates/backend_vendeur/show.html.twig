@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vendeur{% endblock %}
+
+{% block body %}
+    <h1>Vendeur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ vendeur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ vendeur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Situation</th>
+                <td>{{ vendeur.situation }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ vendeur.contact }}</td>
+            </tr>
+            <tr>
+                <th>Credit</th>
+                <td>{{ vendeur.credit }}</td>
+            </tr>
+            <tr>
+                <th>Payer</th>
+                <td>{{ vendeur.payer }}</td>
+            </tr>
+            <tr>
+                <th>Reste</th>
+                <td>{{ vendeur.reste }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ vendeur.code }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ vendeur.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('backend_vendeur_index') }}">back to list</a>
+
+    <a href="{{ path('backend_vendeur_edit', {'id': vendeur.id}) }}">edit</a>
+
+    {{ include('backend_vendeur/_delete_form.html.twig') }}
+{% endblock %}
