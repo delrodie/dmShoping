@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Album;
 use App\Form\AlbumType;
 use App\Repository\AlbumRepository;
+use App\Utilities\GestionAlbum;
 use App\Utilities\GestionLog;
 use App\Utilities\GestionMedia;
 use Cocur\Slugify\Slugify;
@@ -20,11 +21,13 @@ class BackendAlbumController extends AbstractController
 {
     private $gestionLog;
     private $gestionMedia;
+    private $gestionAlbum;
 
-    public function __construct(GestionLog $gestionLog, GestionMedia $gestionMedia)
+    public function __construct(GestionLog $gestionLog, GestionMedia $gestionMedia, GestionAlbum $gestionAlbum)
     {
         $this->gestionLog = $gestionLog;
         $this->gestionMedia = $gestionMedia;
+        $this->gestionAlbum = $gestionAlbum;
     }
 
     /**
@@ -57,7 +60,6 @@ class BackendAlbumController extends AbstractController
             $slug = $slugify->slugify($album->getTitre());
             $album->setSlug($slug);
 
-
             $mediaFile = $form->get('pochette')->getData(); //dd($mediaFile);
 
             if ($mediaFile){
@@ -69,6 +71,7 @@ class BackendAlbumController extends AbstractController
                 $album->setPochette($media);
             }
 
+            $album->setReference($this->gestionAlbum->reference($album));
             $entityManager->persist($album);
             $entityManager->flush();
 

@@ -89,7 +89,7 @@ class AlbumType extends AbstractType
             ->add('promotion', CheckboxType::class,[
                 'attr'=>['class' => 'custom-control-input'],
                 'label' => 'Promotion',
-                'required'=>'false'
+                'required'=>false
             ])
         ;
     }

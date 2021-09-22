@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Entity\Album;
 use App\Repository\AlbumRepository;
 use App\Repository\DestockageRepository;
 use App\Repository\PressageRepository;
@@ -30,6 +31,18 @@ class GestionAlbum
         $this->entityManager = $entityManager;
         $this->stickageRepository = $stickageRepository;
         $this->destockageRepository = $destockageRepository;
+    }
+
+    public function reference($album)
+    {
+        $genre = $album->getGenre();
+        $initial = strtoupper(substr($genre->getLibelle(),0,2));
+        $nombre = count($this->entityManager->getRepository(Album::class)->findBy(['genre' => $genre->getId()]))+1;
+        if ($nombre < 10) $res = $initial.'00'.$nombre;
+        elseif ($nombre < 100) $res = $initial.'0'.$nombre;
+        else $res = $initial.''.$nombre;
+
+        return $res;
     }
 
     /**

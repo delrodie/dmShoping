@@ -41,6 +41,7 @@
                                     <thead>
                                     <tr>
                                         <th class="border-top-0 text-center">#</th>
+                                        <th class="border-top-0 text-center">References</th>
                                         <th class="border-top-0 text-center">Artistes</th>
                                         <th class="border-top-0 text-center">Titres</th>
                                         <th class="border-top-0 text-center">Prix vente</th>
@@ -55,6 +56,7 @@
                                     {% for album in albums %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
+                                            <td class="text-center">{{ album.reference }}</td>
                                             <td>{{ album.artiste.nom }}</td>
                                             <td><a href="{{ path('backend_album_edit', {'id': album.id}) }}">{{ album.titre }}</a></td>
                                             <td class="text-center">{{ album.prixVente|number_format(0,'','.') }}</td>
