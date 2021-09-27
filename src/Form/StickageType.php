@@ -31,7 +31,7 @@ class StickageType extends AbstractType
                 'query_builder' => function(EntityRepository $er){
                     return $er->liste();
                 },
-                'choice_label' => 'titre',
+                //'choice_label' => 'titre',
                 'label' => 'Album'
             ])
         ;

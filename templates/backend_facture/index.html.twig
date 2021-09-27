@@ -58,9 +58,13 @@
                                             <td class="text-right">{{ list.TTC|number_format(0,'',' ') }}</td>
                                             <td class="text-center">{{ list.flag ? '<span class="badge badge-success">ACHEVEE</span>' : '<span class="badge badge-danger">INACHEVEE</span>' }}</td>
                                             <td class="text-center">
-                                                <a href="#" title="Ajouter des CD"><i class="fa fa-plus"></i></a> |
-                                                <a href="#"><i class="fa fa-edit"></i></a> |
-                                                <a href="#" title="Imprimer la facture"><i class="fa fa-print"></i></a>
+                                                {% if not list.flag %}
+                                                    <a href="{{ path('backend_vente_index', {'reference': list.reference}) }}" title="Ajouter des CD"><i class="fa fa-plus"></i></a> |
+                                                {% else %}
+                                                    <a href="{{ path('facturation_impression_bl', {'reference': list.reference}) }}"><i class="fa fa-file"></i></a> |
+                                                    <a href="#" title="Imprimer la facture"><i class="fa fa-print"></i></a>
+                                                {% endif %}
+
                                             </td>
                                         </tr>
                                     {% endfor %}

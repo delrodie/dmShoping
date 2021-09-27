@@ -10,6 +10,9 @@
 {{ form_widget(form) }}
     <div class="text-right mt-5">
         <a href="{{ path('backend_facture_index') }}" class="btn btn-outline-secondary">Annuler</a>
-        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        {% if not facture.flag %}
+            <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        {% endif %}
+
     </div>
 {{ form_end(form) }}
