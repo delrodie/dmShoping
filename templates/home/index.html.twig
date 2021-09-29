@@ -1,20 +1,156 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}{{ parent ()}} Accueil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <main class="main">
+        <div class="container mb-2">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="home-slider owl-carousel owl-theme owl-carousel-lazy mb-2" data-owl-options="{
+							'loop': false,
+							'dots': true,
+							'nav': false
+						}">
+                        {% for slide in slides %}
+                            <div class="home-slide home-slide{{ loop.index }} banner banner-md-vw banner-sm-vw">
+                                <img class="owl-lazy slide-bg" src="{{ absolute_url(asset('assets/images/lazy.png')) }}" data-src="{{ absolute_url(asset('upload/slides/'~ slide.media)) }}" alt="{{ slide.titre }}">
+                                <div class="banner-layer banner-layer-middle">
+                                    <!--<a href="#" class="btn btn-dark btn-md ls-10">Commandez maintenant</a>-->
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                    <div class="banners-container m-b-2 owl-carousel owl-theme" data-owl-options="{
+							'dots': false,
+							'margin': 20,
+							'loop': false,
+							'responsive': {
+								'480': {
+									'items': 2
+								},
+								'768': {
+									'items': 3
+								}
+							}
+						}">
+                        {% for album in promos|slice(0,3) %}
+                            <div class="banner banner{{ loop.index }} banner-hover-shadow mb-2">
+                                <figure>
+                                    <a href="#">
+                                        <img src="{{ absolute_url(asset('upload/albums/'~ album.pochette)) }}" alt="{{ album.titre }}">
+                                    </a>
+                                </figure>
+                            </div>
+                        {% endfor %}
+                    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Backend <code><a href="{{ path('backend_dashboard') }}">Backend</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/delrodie/www/applications/dreammaker/gedis/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+                    <h2 class="section-title ls-n-10 m-b-4">Les albums</h2>
+
+                    <div class="products-slider owl-carousel owl-theme dots-top m-b-1 pb-1">
+                        {% for album in albums|slice(0,5) %}
+                            <div class="product-default inner-quickview inner-icon">
+                                <figure>
+                                    <a href="#">
+                                        <img src="{{ absolute_url(asset('upload/albums/' ~ album.pochette)) }}">
+                                    </a>
+                                    <div class="label-group">
+                                        <div class="product-label label-hot">Nouveau</div>
+                                    </div>
+                                    <a href="#" class="btn-quickview" title="Quick View">Voir</a>
+                                </figure>
+                                <div class="product-details">
+                                    <div class="category-wrap">
+                                        <div class="category-list">
+                                            <a href="#" class="product-category">Zouglou</a>
+                                        </div>
+                                    </div>
+                                    <h2 class="product-title">
+                                        <a href="#">{{ album.titre }}</a>
+                                    </h2>
+                                    <div class="price-box">
+                                        <span class="product-price">{{ album.prixVente|number_format(0,'','.') }} FCFA</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+
+                <div class="sidebar-overlay"></div>
+                <div class="sidebar-toggle"><i class="fas fa-sliders-h"></i></div>
+                <aside class="sidebar-home col-lg-3 order-lg-first mobile-sidebar">
+                    <div class="side-menu-wrapper text-uppercase mb-2 d-none d-lg-block">
+                        <h2 class="side-menu-title bg-gray ls-n-25">Rubriques</h2>
+
+                        <nav class="side-nav">
+                            <ul class="menu menu-vertical sf-arrows">
+                                <li class="active"><a href="#"><i class="icon-home"></i>Accueil</a></li>
+                                <li class=""><a href="#"><i class="icon-users"></i>Artistes</a></li>
+                                <li class=""><a href="#"><i class="fa fa-file"></i>Albums</a></li>
+                                <li><a href="#" class="sf-with-ul"><i class="sicon-book-open"></i>Genres</a>
+                                    <ul>
+                                        <li><a href="#">Afrobeat</a></li>
+                                        <li><a href="#">Zouglou</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#"><i class="fa fa-map-marker-alt"></i>Points de vente</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="widget widget-posts post-date-in-media mt-lg-5">
+                        <div class="owl-carousel owl-theme dots-left dots-m-0" data-owl-options="{
+								'margin': 20
+							}">
+                            <article class="post">
+                                <div class="post-media">
+                                    <a href="#">
+                                        <img src="{{ absolute_url(asset('assets/images/promo/affiche1.jpg')) }}" alt="Post">
+                                    </a>
+                                </div>
+                            </article>
+
+                            <article class="post">
+                                <div class="post-media">
+                                    <a href="#">
+                                        <img src="{{ absolute_url(asset('assets/images/promo/affiche3.jpg')) }}" alt="Post">
+                                    </a>
+                                </div>
+                            </article>
+
+                            <article class="post">
+                                <div class="post-media">
+                                    <a href="#">
+                                        <img src="{{ absolute_url(asset('assets/images/promo/affiche1.jpg')) }}" alt="Post">
+                                    </a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="widget widget-newsletters bg-gray text-center">
+                        <h3 class="widget-title text-uppercase">Newsletter</h3>
+                        <p class="mb-2">Ne manquez plus les sorties d'albums de vos artistes préférés. </p>
+                        <form action="#">
+                            <div class="form-group position-relative sicon-envolope-letter">
+                                <input type="email" class="form-control" name="newsletter-email" placeholder="Adresse email">
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-md" value="S'inscrire">
+                        </form>
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <div class="newsletter-popup mfp-hide bg-img" id="newsletter-popup-form" style="background: #f1f1f1 no-repeat center/cover url({{ asset('assets/images/pop/pop1.png') }})">
+        <div class="newsletter-popup-content">
+
+            <p style="padding-top: 250px; padding-left: 20px;"><a href="#" class="btn text-white">Commander</a></p>
+        </div>
+    </div>
 {% endblock %}

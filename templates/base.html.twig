@@ -1,19 +1,196 @@
 <!DOCTYPE html>
+<html lang="fr">
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    <title>{% block title %}Plateforme de distribution d'oeuvres discograpiques de Dream Maker{% endblock %}</title>
+
+
+    {% block meta %}
+        <meta name="keywords" content="Dream Maker, Boutique, " />
+        <meta name="description" content="Boutique de vente de vente de CD etde distribution de CD">
+        <meta name="author" content="Dream Maker, Delrodie AMOIKON">
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('assets/images/logo.png')) }}">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/bootstrap.min.css')) }}">
+
+        <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/style.min.css')) }}">
+        <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('assets/vendor/fontawesome-free/css/all.min.css')) }}">
+        <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('assets/vendor/simple-line-icons/css/simple-line-icons.min.css')) }}">
+    {% endblock %}
+</head>
+<body>
+<div class="page-wrapper">
+    {% block commande %}{% endblock %}
+
+    <header class="header">
+        <div class="header-top bg-primary text-uppercase">
+            <div class="container">
+                <div class="header-left">
+                    <div class="header-dropdown  dropdown-expanded ">
+                        <a href="#" class="pl-0">Nos plateformes</a>
+                        <div class="header-menu">
+                            <ul>
+                                <li><a href="http://dreammaker-ci.com"target="_blank">Dream Maker</a></li>
+                                <li><a href="http://tv.dreammakerci.com" target="_blank">DreamTV</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="header-right header-dropdowns ml-0 ml-sm-auto">
+                    <div class="header-dropdown dropdown-expanded mr-3">
+                        <a href="#">Connexion</a>
+                        <div class="header-menu">
+                            <ul>
+                                <li><a href="#">Mon compte </a></li>
+                                <li><a href="{{ absolute_url(path('app_login')) }}">Se connecter</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <span class="separator"></span>
+
+                    <div class="social-icons">
+                        <a href="https://instagram.com/dreammakerci" class="social-icon social-instagram icon-instagram" target="_blank"></a>
+                        <a href="https://twitter.com/dreammakerci" class="social-icon social-twitter icon-twitter" target="_blank"></a>
+                        <a href="https://facebook.com/dreammakercicom" class="social-icon social-facebook icon-facebook" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-middle text-dark">
+            <div class="container">
+                <div class="header-left col-lg-2 w-auto pl-0">
+                    <button class="mobile-menu-toggler mr-2" type="button">
+                        <i class="icon-menu"></i>
+                    </button>
+                    <a href="{{absolute_url(path('app_home') )}}" class="logo">
+                        <img src="{{ absolute_url(asset('assets/images/logo.png')) }}" alt="Logo de Dream Maker" class="img-fluid">
+                    </a>
+                </div>
+
+                <div class="header-right w-lg-max pl-2">
+                    <div class="header-search header-icon header-search-inline header-search-category w-lg-max mr-lg-4">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
+                        <form action="#" method="get">
+                            <div class="header-search-wrapper">
+                                <input type="search" class="form-control" name="q" id="q" placeholder="Recherche..." required>
+
+                                <button class="btn p-0 icon-search-3" type="submit"></button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="header-contact d-none d-lg-flex align-items-center pr-xl-5 mr-3 ml-xl-5">
+                        <i class="icon-phone-2"></i>
+                        <h6 class="pt-1 line-height-1">Nous contacter<a href="tel:+225 0758999979" class="d-block text-dark ls-10 pt-1">+225 07 58 99 99 79</a></h6>
+                    </div>
+
+                    <!-- Panier a inserer -->
+                </div>
+            </div>
+        </div>
+
+        {% block menu %}{% endblock %}
+    </header>
+
+    {% block body %}{% endblock %}
+
+    <footer class="footer bg-dark">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6 pb-5 pb-sm-0">
+                        <div class="widget">
+                            <h4 class="widget-title">A propos de nous</h4>
+                            <img src="{{ absolute_url(asset('assets/images/logo_dm.png')) }}" alt="Logo" class="m-b-3 img-fluid" width="150">
+                            <p class="m-b-4 pb-1">
+                                Dream Maker est une entreprise opérant dans l’industrie musicale, l’événementiel et le multimédia depuis 2010.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6 pb-5 pb-sm-0">
+                        <div class="widget">
+                            <h4 class="widget-title pb-1">Dream Maker</h4>
+
+                            <ul class="links">
+                                <li><a href="http://dreammaker-ci.com/presentation/"target="_blank">Qui sommes-nous</a></li>
+                                <li><a href="http://dreammaker-ci.com/presentation/#dreamService" target="_blank">Nos services</a></li>
+                                <li><a href="http://dreammaker-ci.com/notre-label/">Notre label</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6 pb-5 pb-sm-0">
+                        <div class="widget">
+                            <h4 class="widget-title">Boutique</h4>
+
+                            <ul class="links">
+                                <li><a href="#">Comment commander vos CD physiques</a></li>
+                                <li><a href="#">Option de livraison</a></li>
+                                <li><a href="#">Points de ventes</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6 pb-5 pb-sm-0">
+                        <div class="widget mb-2">
+                            <h4 class="widget-title mb-1 pb-1">Contacts</h4>
+                            <ul class="contact-info m-b-4">
+                                <li>
+                                    <span class="contact-info-label">Adresse:</span>Cocody Attoban entre Commissariat du 30è arrondissement et la SODECI
+                                </li>
+                                <li>
+                                    <span class="contact-info-label">Telephone:</span><a href="tel:">+225 27 22 42 37 09 / 07 58 99 99 79 </a>
+                                </li>
+                                <li>
+                                    <span class="contact-info-label">Email:</span> <a href="mailto:info@dreammaker-ci.com">info@dreammaker-ci.com</a>
+                                </li>
+                            </ul>
+                            <div class="social-icons">
+                                <a href="https://facebook.com/dreammakercicom" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
+                                <a href="https://twitter.com/dreammakerci" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
+                                <a href="https://youtube.com/dreammakerci" class="social-icon social-gplus fab fa-youtube" target="_blank" title="Youtube"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-bottom d-flex justify-content-between align-items-center flex-wrap">
+                <p class="footer-copyright py-3 pr-4 mb-0">© Dream Maker 2020. Tous droits réservés
+                <div class="text-right"><a href="{{ absolute_url(path('backend_dashboard')) }}" target="_blank">BackOffice</a></div>
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div class="mobile-menu-overlay"></div>
+
+{{ render(url('menu_mobile')) }}
+
+
+<a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('assets/js/jquery.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/js/bootstrap.bundle.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/js/plugins.min.js')) }}"></script>
+
+    <script src="{{ absolute_url(asset('assets/js/main.min.js')) }}"></script>
+{% endblock %}
+</body>
 </html>

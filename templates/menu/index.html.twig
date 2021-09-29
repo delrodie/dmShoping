@@ -1,0 +1,23 @@
+<div class="header-bottom sticky-header d-none d-lg-block">
+    <div class="container">
+        <nav class="main-nav w-100">
+            <ul class="menu">
+                <li class="active">
+                    <a href="{{ absolute_url(path('app_home')) }}">Accueil</a>
+                </li>
+                <li><a href="#">Artistes</a></li>
+                <li><a href="#">Albums</a></li>
+                <li>
+                    <a href="#">Genres</a>
+                    <ul>
+                        {% for genre in genres %}
+                            <li><a href="#">{{ genre.libelle }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><a href="#">Points de vente</a></li>
+                <li class="float-right"><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
