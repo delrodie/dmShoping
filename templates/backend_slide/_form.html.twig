@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-sm-12">{{ form_row(form.titre) }}</div>
+    <div class="col-sm-12">{{ form_row(form.media) }}</div>
+    <div class="col-sm-12 form-check mb-2 mt-3 ml-3">
+        {{ form_widget(form.statut) }}
+        {{ form_label(form.statut) }}
+    </div>
+</div>
+    {{ form_widget(form) }}
+    <div class="text-right mt-5">
+        <a href="{{ path('backend_slide_index') }}" class="btn btn-outline-secondary">Annuler</a>
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}
