@@ -241,4 +241,29 @@ class GestionAlbum
         return $lists;
     }
 
+    public function albumShowBySlug($slug)
+    {
+        $album = $this->albumRepository->findBySlug($slug); //dd($album);
+
+        $result = [
+            'id' => $album->getId(),
+            'reference' => $album->getReference(),
+            'titre' => $album->getTitre(),
+            'prixVente' => $album->getPrixVente(),
+            'description' => $album->getDescription(),
+            'pochette' => $album->getPochette(),
+            'slug' => $album->getSlug(),
+            'ecommmerce' => $album->getEcommerce(),
+            'promotion' => $album->getpromotion(),
+            'nomArtiste' => $album->getArtiste()->getNom(),
+            'matriculeArtiste' => $album->getArtiste()->getMatricule(),
+            'photoArtiste' => $album->getArtiste()->getMedia(),
+            'slugArtiste' => $album->getArtiste()->getSlug(),
+            'genre' => $album->getGenre()->getLibelle(),
+            'genreSlug' => $album->getGenre()->getSlug(),
+        ];
+
+        return $result;
+    }
+
 }

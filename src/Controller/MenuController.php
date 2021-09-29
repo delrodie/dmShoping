@@ -25,7 +25,7 @@ class MenuController extends AbstractController
     /**
      * @Route("/mobile", name="menu_mobile")
      */
-    public function mobile()
+    public function mobile(): Response
     {
         return $this->render('menu/mobile.html.twig',[
             'genres' => $this->getDoctrine()->getRepository(Genre::class)->findBy([],['libelle'=>"ASC"]),

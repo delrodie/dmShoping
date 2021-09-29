@@ -40,6 +40,21 @@ class AlbumRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findBySlug($slug)
+    {
+        return $this
+            ->createQueryBuilder('al')
+            ->addSelect('ar')
+            ->addSelect('g')
+            ->leftJoin('al.artiste', 'ar')
+            ->leftJoin('al.genre', 'g')
+            ->where('al.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->orderBy('al.id', 'DESC')
+            ->getQuery()->getOneOrNullResult()
+            ;
+    }
+
     // /**
     //  * @return Album[] Returns an array of Album objects
     //  */

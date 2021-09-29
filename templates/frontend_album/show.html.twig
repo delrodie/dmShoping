@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pré-commande du nouvel album de {{ album.nomArtiste }}, {{ album.titre }}{% endblock %}
+
+
+{% block menu %}
+    {{ render(url('menu_horizontal')) }}
+{% endblock %}
+
+{% block body %}
+    <main class="main">
+        <div class="container">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ album.genre }}</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ album.nomArtiste}}</a></li>
+                </ol>
+            </nav>
+            <div class="product-single-container product-single-default">
+                <div class="row">
+                    <div class="col-sm-12 d-sm-block mt-5 text-center  product-single-details d-md-none">
+                        <div class="product-action">
+                            <form action="#" method="get">
+                                <div class="product-single-qty">
+                                    <input class="horizontal-quantity form-control" name="quantite" type="text">
+                                </div>
+                                <input type="hidden"name="album" value="{{ album.slug }}">
+                                <button type="submit" class="btn btn-dark add-cart icon-shopping-cart" title="Commander">Commandez</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-5 product-single-gallery">
+                        <div class="product-slider-container">
+                            <div class="product-single-carousel owl-carousel owl-theme">
+                                <div class="product-item">
+                                    <img class="product-single-image" src="{{ absolute_url(asset('upload/albums/' ~ album.pochette)) }}" data-zoom-image="{{ absolute_url(asset('upload/albums/' ~ album.pochette)) }}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7 product-single-details">
+                        <h1 class="product-title">{{ album.titre }}</h1>
+
+                        <hr class="short-divider">
+
+                        <div class="price-box">
+                            <span class="product-price">{{ album.prixVente|number_format(0,'','.') }} FCFA</span>
+                        </div>
+
+                        <div class="product-desc">
+                            <p>
+                                {{ album.description|raw }}
+                            </p>
+                        </div>
+
+                        <hr class="divider">
+
+                        <div class="product-action">
+                            <form action="#" method="get">
+                                <div class="product-single-qty">
+                                    <input class="horizontal-quantity form-control" name="quantite" type="text">
+                                </div>
+                                <input type="hidden"name="album" value="{{ album.slug }}">
+                                <button type="submit" class="btn btn-dark add-cart icon-shopping-cart" title="Commander">Commandez</button>
+                            </form>
+                        </div>
+
+                        <hr class="divider mb-1">
+
+                        <!--<div class="product-single-share">
+                            <label class="sr-only">Partage:</label>
+
+                            <div class="social-icons mr-2">
+                                <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
+                                <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
+                                <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank" title="Linkedin"></a>
+                                <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank" title="Google +"></a>
+                                <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>
+                            </div>
+
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-single-tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content" role="tab" aria-controls="product-desc-content" aria-selected="true">Description</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" aria-labelledby="product-tab-desc">
+                        <div class="product-desc-content">
+                            {{ album.description|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block meta %}
+
+    <meta name="keywords" content="Ismaël Isaac, nouvel album"  />
+    <meta name="description" content="Pre-commande du nouvel album de {{ album.nomArtiste }}" />
+
+    <link rel="canonical" href="{{ absolute_url(path('frontend_album_show', {'artiste': album.slugArtiste, 'slug': album.slug})) }}" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="Item" />
+    <meta property="og:title" content="Pré-commande du nouvel album de {{ album.nomArtiste }}, {{ album.titre }}" />
+    <meta property="og:description" content="Plateforme de commande des CDs de {{ album.nomArtiste }}." />
+    <meta property="og:url" content="{{ absolute_url(path('frontend_album_show', {'artiste': album.slugArtiste, 'slug': album.slug})) }}" />
+    <meta property="og:site_name" content="Dream Maker" />
+    <meta property="og:image" content="{{ absolute_url(asset('upload/albums/' ~ album.pochette)) }}" />
+{% endblock %}
