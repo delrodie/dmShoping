@@ -18,7 +18,7 @@ class MenuController extends AbstractController
     public function index(): Response
     {
         return $this->render('menu/index.html.twig', [
-            'genres' => $this->getDoctrine()->getRepository(Genre::class)->findBy([],['libelle'=>"ASC"]),
+            'genres' => $this->listGenre(),
         ]);
     }
 
@@ -28,7 +28,25 @@ class MenuController extends AbstractController
     public function mobile(): Response
     {
         return $this->render('menu/mobile.html.twig',[
-            'genres' => $this->getDoctrine()->getRepository(Genre::class)->findBy([],['libelle'=>"ASC"]),
+            'genres' => $this->listGenre(),
         ]);
+    }
+
+    /**
+     * @Route("/desktop/vertical", name="menu_vertical")
+     */
+    public function vertical()
+    {
+        return $this->render('menu/vertical.html.twig',[
+            'genres' => $this->listGenre(),
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    protected function ListGenre(): array
+    {
+        return $this->getDoctrine()->getRepository(Genre::class)->findBy([],['libelle'=>"ASC"]);
     }
 }

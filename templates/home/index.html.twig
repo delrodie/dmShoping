@@ -35,7 +35,7 @@
 								}
 							}
 						}">
-                        {% for album in promos|slice(0,3) %}
+                        {% for album in albums|filter(album => album.promotion == true)|slice(0,3) %}
                             <div class="banner banner{{ loop.index }} banner-hover-shadow mb-2">
                                 <figure>
                                     <a href="{{ path('frontend_album_show', {'artiste': album.artiste.slug, 'slug': album.slug}) }}">
@@ -83,24 +83,9 @@
                 <div class="sidebar-overlay"></div>
                 <div class="sidebar-toggle"><i class="fas fa-sliders-h"></i></div>
                 <aside class="sidebar-home col-lg-3 order-lg-first mobile-sidebar">
-                    <div class="side-menu-wrapper text-uppercase mb-2 d-none d-lg-block">
-                        <h2 class="side-menu-title bg-gray ls-n-25">Rubriques</h2>
 
-                        <nav class="side-nav">
-                            <ul class="menu menu-vertical sf-arrows">
-                                <li class="active"><a href="#"><i class="icon-home"></i>Accueil</a></li>
-                                <li class=""><a href="#"><i class="icon-users"></i>Artistes</a></li>
-                                <li class=""><a href="#"><i class="fa fa-file"></i>Albums</a></li>
-                                <li><a href="#" class="sf-with-ul"><i class="sicon-book-open"></i>Genres</a>
-                                    <ul>
-                                        <li><a href="#">Afrobeat</a></li>
-                                        <li><a href="#">Zouglou</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#"><i class="fa fa-map-marker-alt"></i>Points de vente</a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                    {{ render(url('menu_vertical')) }}
+
                     <div class="widget widget-posts post-date-in-media mt-lg-5">
                         <div class="owl-carousel owl-theme dots-left dots-m-0" data-owl-options="{
 								'margin': 20

@@ -1,0 +1,19 @@
+<div class="side-menu-wrapper text-uppercase mb-2 d-none d-lg-block">
+    <h2 class="side-menu-title bg-gray ls-n-25">Rubriques</h2>
+
+    <nav class="side-nav">
+        <ul class="menu menu-vertical sf-arrows">
+            <li class="active"><a href="#"><i class="icon-home"></i>Accueil</a></li>
+            <li class=""><a href="#"><i class="icon-users"></i>Artistes</a></li>
+            <li class=""><a href="#"><i class="fa fa-file"></i>Albums</a></li>
+            <li><a href="#" class="sf-with-ul"><i class="sicon-book-open"></i>Genres</a>
+                <ul>
+                    {% for genre in genres %}
+                        <li><a href="#">{{ genre.libelle }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-map-marker-alt"></i>Points de vente</a></li>
+        </ul>
+    </nav>
+</div>
