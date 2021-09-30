@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Affiche;
 use App\Entity\Album;
 use App\Entity\Slide;
 use App\Repository\AlbumRepository;
@@ -28,7 +29,8 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'albums' => $this->albumRepository->findBy(['ecommerce'=>true], ['id'=>'DESC']),
             'promos' => $this->albumRepository->findBy(['promotion'=> true, 'ecommerce' => true], ['id'=>'DESC']),
-            'slides' => $this->getDoctrine()->getRepository(Slide::class)->findBy(['statut'=>true], ['id'=>'DESC'])
+            'slides' => $this->getDoctrine()->getRepository(Slide::class)->findBy(['statut'=>true], ['id'=>'DESC']),
+            'affiches' => $this->getDoctrine()->getRepository(Affiche::class)->findBy(['statut'=>true], ['id'=>'DESC'])
         ]);
     }
 }

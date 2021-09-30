@@ -90,29 +90,16 @@
                         <div class="owl-carousel owl-theme dots-left dots-m-0" data-owl-options="{
 								'margin': 20
 							}">
-                            <article class="post">
-                                <div class="post-media">
-                                    <a href="#">
-                                        <img src="{{ absolute_url(asset('assets/images/promo/affiche1.jpg')) }}" alt="Post">
-                                    </a>
-                                </div>
-                            </article>
+                            {% for affiche in affiches %}
+                                <article class="post">
+                                    <div class="post-media">
+                                        <a href="#">
+                                            <img src="{{ absolute_url(asset('upload/affiches/'~ affiche.media)) }}" alt="{{ affiche.titre }}">
+                                        </a>
+                                    </div>
+                                </article>
+                            {% endfor %}
 
-                            <article class="post">
-                                <div class="post-media">
-                                    <a href="#">
-                                        <img src="{{ absolute_url(asset('assets/images/promo/affiche3.jpg')) }}" alt="Post">
-                                    </a>
-                                </div>
-                            </article>
-
-                            <article class="post">
-                                <div class="post-media">
-                                    <a href="#">
-                                        <img src="{{ absolute_url(asset('assets/images/promo/affiche1.jpg')) }}" alt="Post">
-                                    </a>
-                                </div>
-                            </article>
                         </div>
                     </div>
 
@@ -132,10 +119,10 @@
         </div>
     </main>
 
-    <div class="newsletter-popup mfp-hide bg-img" id="newsletter-popup-form" style="background: #f1f1f1 no-repeat center/cover url({{ asset('assets/images/pop/pop1.png') }})">
+    <!--<div class="newsletter-popup mfp-hide bg-img" id="newsletter-popup-form" style="background: #f1f1f1 no-repeat center/cover url({{ asset('assets/images/pop/pop1.png') }})">
         <div class="newsletter-popup-content">
 
             <p style="padding-top: 250px; padding-left: 20px;"><a href="#" class="btn text-white">Commander</a></p>
         </div>
-    </div>
+    </div>-->
 {% endblock %}

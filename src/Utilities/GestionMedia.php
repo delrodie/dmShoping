@@ -13,12 +13,14 @@ class GestionMedia
     private $mediaArtiste;
     private $mediaAlbum;
     private $mediaSlide;
+    private $mediaAffiche;
 
-    public function __construct($artisteDirectory, $albumDirectory, $slideDirectory)
+    public function __construct($artisteDirectory, $albumDirectory, $slideDirectory, $afficheDirectory)
     {
         $this->mediaArtiste = $artisteDirectory;
         $this->mediaAlbum = $albumDirectory;
         $this->mediaSlide = $slideDirectory;
+        $this->mediaAffiche = $afficheDirectory;
     }
 
     /**
@@ -42,6 +44,7 @@ class GestionMedia
             if ($media === 'artiste') $file->move($this->mediaArtiste, $newFilename);
             elseif ($media === 'album') $file->move($this->mediaAlbum, $newFilename);
             elseif ($media === 'slide') $file->move($this->mediaSlide, $newFilename);
+            elseif ($media === 'affiche') $file->move($this->mediaAffiche, $newFilename);
             else $file->move($this->mediaArtiste, $newFilename);
         }catch (FileException $e){
 
@@ -62,6 +65,7 @@ class GestionMedia
         if ($media === 'artiste') unlink($this->mediaArtiste.'/'.$ancienMedia);
         elseif ($media === 'album') unlink($this->mediaAlbum.'/'.$ancienMedia);
         elseif ($media === 'slide') unlink($this->mediaSlide.'/'.$ancienMedia);
+        elseif ($media === 'affiche') unlink($this->mediaAffiche.'/'.$ancienMedia);
         else return false;
 
         return true;
