@@ -1,4 +1,7 @@
 {
+    "cinetpay/cinetpay-php": {
+        "version": "1.9.2"
+    },
     "cocur/slugify": {
         "version": "v4.0.0"
     },

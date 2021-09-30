@@ -174,10 +174,9 @@
                     if (response.status === true){
                         CinetPay.setConfig({
                             apikey: '738218945615320aa597ff3.35893469',
-                            //apikey: '18714242495c8ba3f4cf6068.77597603',
                             site_id: 444572,
-                            //site_id: 422630,
-                            notify_url: 'http://adhesion.scoutascci.org/cinetpay/notify'
+                            //notify_url: 'http://adhesion.scoutascci.org/cinetpay/notify'
+                            notify_url: '{{ absolute_url(path("cinetpay_notify")) }}'
                         });
                         CinetPay.setSignatureData({
                             amount: response.amount,
@@ -204,7 +203,7 @@
                                         cancelButtonText: 'Non, prochainement',
                                     }).then((result) => {
                                         if (result.value) {
-                                            window.location = "http://adhesion.scoutascci.org/recherche/carte/";
+                                            window.location = "{{ absolute_url(path('app_home')) }}";
                                         } else {
                                             window.location.reload();
                                         }
