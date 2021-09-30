@@ -53,6 +53,17 @@
                 text-align: center;
                 box-shadow: 2px 2px 3px #999;
             }
+            .sicre2 {
+                /*position: fixed;*/
+                background-color: darkblue;
+                /*top: 50px;*/
+                bottom: 50px;
+                width: 225px;
+                height: 50px;
+                color: darkblue;
+                text-align: left;
+                box-shadow: 2px 2px 3px #999;
+            }
 
             .sicre:hover {
                 text-decoration: none;
@@ -152,6 +163,10 @@
                 <div class="col-sm-12">
                     <div class="page-title-box">
 
+                        <a href="#" class="sicre2 no-print" id="badge" onclick="print()">
+                            <h5 class="my-float">Imprimer le reçu</h5>
+                        </a>
+
                         <div class="container" id="invoicePrint">
                             <div class="invoice">
                                 <div class="entete" id="header">
@@ -227,7 +242,7 @@
                         </div>
 
                         <a href="#" class="sicre no-print" id="badge" onclick="print()">
-                            <h5 class="my-float">Imprimer le badge</h5>
+                            <h5 class="my-float">Imprimer le reçu</h5>
                         </a>
                     </div>
                 </div>
