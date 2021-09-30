@@ -48,11 +48,11 @@
             <hr class="divider">
 
             <div class="product-action">
-                <form action="{{ path('panier') }}">
+                <form action="{{ absolute_url(path('panier')) }}" method="post">
                     <div class="product-single-qty">
-                        <input class="horizontal-quantity form-control" type="text">
+                        <input class="horizontal-quantity form-control" name="quantite" type="text">
                     </div>
-
+                    <input type="hidden"name="album" value="{{ album.slug }}">
                     <button type="submit" class="btn btn-dark add-cart" title="Add to Cart">Commandez</button>
                 </form>
             </div>

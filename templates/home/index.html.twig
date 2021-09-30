@@ -52,7 +52,7 @@
                         {% for album in albums|slice(0,5) %}
                             <div class="product-default inner-quickview inner-icon">
                                 <figure>
-                                    <a href="#">
+                                    <a href="{{ path('frontend_album_show', {'artiste': album.artiste.slug, 'slug': album.slug}) }}">
                                         <img src="{{ absolute_url(asset('upload/albums/' ~ album.pochette)) }}">
                                     </a>
                                     <div class="label-group">

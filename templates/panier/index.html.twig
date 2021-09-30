@@ -124,14 +124,13 @@
                             </tr>
                             </tfoot>
                         </table>
-                        <div class="checkout-methods mt-5">
-                            <button class="btn btn-block btn-sm btn-primary">{{ button_label|default('Valider') }}</button>
-                        </div>
                         <input type="hidden" name="quantite"value="{{ qte }}">
                         <input type="hidden" name="montant" value="{{ pv }}">
                         <input type="hidden" name="album" value="{{ album.slug }}">
+                        <div class="checkout-methods mt-5">
+                            <button class="btn btn-block btn-sm btn-primary" id="valid">{{ button_label|default('Valider') }}</button>
+                        </div>
                         {{ form_end(form) }}
-
 
                     </div>
                 </div>
@@ -153,13 +152,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         $(document).ready(function() {
-
             $('.commune').select2();
+
+            // Image loader
+            let img = document.createElement("img");
+            img.src = "{{ absolute_url(asset('assets/images/ajax-loader.gif')) }}";
+            let button = document.getElementById("valid");
 
 
 
             // Soumission
             $("#commande").submit(function (event) {
+                $('#valid').empty()
+                button.appendChild(img);
+
                 event.preventDefault();
                 var post_url = $(this).attr("action");
                 var request_method = $(this).attr("method");
