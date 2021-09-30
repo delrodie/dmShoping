@@ -175,7 +175,6 @@
                         CinetPay.setConfig({
                             apikey: '738218945615320aa597ff3.35893469',
                             site_id: 444572,
-                            //notify_url: 'http://adhesion.scoutascci.org/cinetpay/notify'
                             notify_url: '{{ absolute_url(path("cinetpay_notify")) }}'
                         });
                         CinetPay.setSignatureData({
@@ -203,7 +202,7 @@
                                         cancelButtonText: 'Non, prochainement',
                                     }).then((result) => {
                                         if (result.value) {
-                                            window.location = "impression/commande/" + paymentInfo.cpm_trans_id;
+                                            window.location = "commande/impression/" + paymentInfo.cpm_trans_id;
                                         } else {
                                             window.location.reload();
                                         }
