@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-sm-12 d-sm-block mt-5 text-center  product-single-details d-md-none">
                         <div class="product-action">
-                            <form action="#" method="get">
+                            <form action="{{ absolute_url(path('panier') )}}" method="post">
                                 <div class="product-single-qty">
                                     <input class="horizontal-quantity form-control" name="quantite" type="text">
                                 </div>
@@ -58,7 +58,7 @@
                         <hr class="divider">
 
                         <div class="product-action">
-                            <form action="#" method="get">
+                            <form action="{{ absolute_url(path('panier')) }}" method="post">
                                 <div class="product-single-qty">
                                     <input class="horizontal-quantity form-control" name="quantite" type="text">
                                 </div>

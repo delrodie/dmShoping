@@ -37,6 +37,11 @@ class Localite
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $regroupement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Localite
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getRegroupement(): ?string
+    {
+        return $this->regroupement;
+    }
+
+    public function setRegroupement(?string $regroupement): self
+    {
+        $this->regroupement = $regroupement;
 
         return $this;
     }

@@ -36,6 +36,7 @@
                                     <thead>
                                     <tr>
                                         <th class="border-top-0 text-center">#</th>
+                                        <th class="border-top-0 text-center">Regroupement</th>
                                         <th class="border-top-0 text-center">Lieu</th>
                                         <th class="border-top-0 text-center">Prix</th>
                                         <th class="border-top-0 text-center">Statut</th>
@@ -45,6 +46,7 @@
                                     {% for localite in localites %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
+                                            <td>{{ localite.regroupement }}</td>
                                             <td><a href="{{ path('backend_localite_edit', {'id': localite.id}) }}">{{ localite.lieu }}</a></td>
                                             <td class="text-center">{{ localite.prix|number_format(0,'','.') }}</td>
                                             <td class="text-center">{{ localite.statut? '<span class="badge badge-success">ACTIVE</span>' : '<span class="badge badge-danger">DESACTIVE</span>' }}</td>

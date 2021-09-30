@@ -49,7 +49,7 @@
                                         <th class="border-top-0 text-center">Stickés</th>
                                         <th class="border-top-0 text-center">Distribués</th>
                                         <th class="border-top-0 text-center">Stock</th>
-                                        <th class="border-top-0 text-center">Action</th>
+                                        <th class="border-top-0 text-center">Livraison</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -64,7 +64,9 @@
                                             <td class="text-center">{{ album.sticke ? album.sticke : '0' }}</td>
                                             <td class="text-center">{{ album.distribue ? album.distribue : '0' }}</td>
                                             <td class="text-center">{{ album.stock ? album.stock : '0' }}</td>
-                                            <td></td>
+                                            <td class="text-center">
+                                                {{ album.fraisLivraison ? '<span class="badge badge-info">AVEC FRAIS</span>' : '<span class="badge badge-warning">SANS FRAIS</span>' }}
+                                            </td>
 
                                         </tr>
                                     {% endfor %}

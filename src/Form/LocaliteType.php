@@ -28,7 +28,10 @@ class LocaliteType extends AbstractType
                 'label' => 'Statut',
                 'required'=>false
             ])
-            //->add('slug')
+            ->add('regroupement', TextType::class,[
+                'attr'=>['class'=>"form-control", 'autocomplete'=>'off', 'placeholder'=>"Ex: Abidjan"],
+                'label' => "Regroupement du lieu "
+            ])
         ;
     }
 

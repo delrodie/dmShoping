@@ -87,6 +87,11 @@ class Album
      */
     private $promotion;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $fraisLivraison;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -263,5 +268,17 @@ class Album
     public function __toString()
     {
         return $this->getTitre().' ('.$this->getArtiste()->getNom().')';
+    }
+
+    public function getFraisLivraison(): ?bool
+    {
+        return $this->fraisLivraison;
+    }
+
+    public function setFraisLivraison(?bool $fraisLivraison): self
+    {
+        $this->fraisLivraison = $fraisLivraison;
+
+        return $this;
     }
 }

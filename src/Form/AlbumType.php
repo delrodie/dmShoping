@@ -91,6 +91,11 @@ class AlbumType extends AbstractType
                 'label' => 'Promotion',
                 'required'=>false
             ])
+            ->add('fraisLivraison', CheckboxType::class,[
+                'attr'=>['class' => 'custom-control-input', 'checked'=>true],
+                'label' => 'Frais de livraison',
+                'required'=>false,
+            ])
         ;
     }
 

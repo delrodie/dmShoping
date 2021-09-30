@@ -1,0 +1,233 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block menu %}
+    {{ render(url('menu_horizontal')) }}
+{% endblock %}
+
+{% block body %}
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_home') }}"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Panier</li>
+                </ol>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="cart-table-container">
+                        <table class="table table-cart">
+                            <thead>
+                            <tr>
+                                <th class="product-col">Albums</th>
+                                <th class="price-col">Prix</th>
+                                <th class="qty-col">Qté</th>
+                                <th>Sous total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="product-row">
+                                <td class="product-col">
+                                    <figure class="product-image-container">
+                                        <a href="#" class="product-image">
+                                            <img src="{{ absolute_url(asset('upload/albums/' ~ album.pochette)) }}" alt="{{ album.artiste.nom }} {{ album.titre }}" class="rounded-circle" width="100">
+                                        </a>
+                                    </figure>
+                                    <h2 class="product-title">
+                                        <a href="#">{{ album.titre }}</a>
+                                    </h2>
+                                </td>
+                                <td>{{ album.prixVente|number_format(0,'','.') }}</td>
+                                <td class="">
+                                    <div class="input-group-sm" type="text">{{ qte }}
+                                    </div>
+                                </td>
+                                <td>
+                                    {% set pv = album.prixVente*qte %}
+                                    <b>{{ pv|number_format(0,'','.') }} FCFA</b>
+                                </td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="cart-summary">
+                        <h3>Commande</h3>
+
+
+                        {{ form_start(form,{'attr':{'id':"commande", 'action': "commande/validation"}}) }}
+
+                        <div class="form-group form-group-sm">
+                            <label>Nom & prénoms</label>
+                            {{ form_widget(form.nom) }}
+                            {{ form_errors(form.nom) }}
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label>Téléphone</label>
+                            {{ form_widget(form.tel) }}
+                            {{ form_errors(form.tel) }}
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label>Commune</label>
+                            <select name="panier_localite" id="panier_localite" class="form-control form-control-lg commune">
+                                <option value=""> -- </option>
+                                <optgroup label="Abidjan">
+                                    {% for localite in localites|filter(localite => localite.regroupement == 'Abidjan') %}
+                                        <option value="{{ localite.id }}">{{ localite.lieu }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                                <optgroup label="Autres localités">
+                                    {% for localite in localites|filter(localite => localite.regroupement != 'Abidjan') %}
+                                        <option value="{{ localite.id }}">{{ localite.lieu }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label>Adresse de livraison</label>
+                            {{ form_widget(form.adresse) }}
+                            {{ form_errors(form.adresse) }}
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label>Adresse email</label>
+                            {{ form_widget(form.email) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                        {{ form_widget(form) }}
+
+                        <table class="table table-totals mt-3">
+                            <tbody>
+                            <tr>
+                                <td>Sous total</td>
+                                <td>{{ pv|number_format(0,'','.') }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Frais de livraison</td>
+                                <td><span id="frais_livraison">0</span></td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{ pv|number_format(0,'','.') }} Fcfa</td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <div class="checkout-methods mt-5">
+                            <button class="btn btn-block btn-sm btn-primary">{{ button_label|default('Valider') }}</button>
+                        </div>
+                        <input type="hidden" name="quantite"value="{{ qte }}">
+                        <input type="hidden" name="montant" value="{{ pv }}">
+                        <input type="hidden" name="album" value="{{ album.slug }}">
+                        {{ form_end(form) }}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-6"></div>
+    </main>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script charset="utf-8" src="https://www.cinetpay.com/cdn/seamless_sdk/latest/cinetpay.prod.min.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('.commune').select2();
+
+
+
+            // Soumission
+            $("#commande").submit(function (event) {
+                event.preventDefault();
+                var post_url = $(this).attr("action");
+                var request_method = $(this).attr("method");
+                var form_data = $(this).serialize();
+                $.ajax({
+                    url: post_url,
+                    type: request_method,
+                    data: form_data,
+                    dataType: 'json',
+                }).done(function (response) {
+                    console.log(response)
+                    if (response.status === true){
+                        CinetPay.setConfig({
+                            apikey: '738218945615320aa597ff3.35893469',
+                            //apikey: '18714242495c8ba3f4cf6068.77597603',
+                            site_id: 444572,
+                            //site_id: 422630,
+                            notify_url: 'http://adhesion.scoutascci.org/cinetpay/notify'
+                        });
+                        CinetPay.setSignatureData({
+                            amount: response.amount,
+                            trans_id: response.id,
+                            currency: 'CFA',
+                            designation: 'Paiement de ' + parseInt(response.amount) + ' FCFA',
+                        });
+                        CinetPay.getSignature();
+                        CinetPay.on('signatureCreated', function (token) {});
+
+                        CinetPay.on('paymentPending', function (e) {});
+                        CinetPay.on('error', function (e) {});
+                        CinetPay.on('paymentSuccessfull', function (paymentInfo) {
+                            if (typeof paymentInfo.lastTime != 'undefined') {
+                                if (paymentInfo.cpm_result == '00') {
+                                    Swal.fire({
+                                        type: 'success',
+                                        title: 'Félicitation!',
+                                        text: 'votre commande a ete effectuee avec succes. Voulez vous imprimez votre recu ?',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Oui',
+                                        cancelButtonText: 'Non, prochainement',
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            window.location = "http://adhesion.scoutascci.org/recherche/carte/";
+                                        } else {
+                                            window.location.reload();
+                                        }
+                                    });
+                                }else{
+                                    Swal.fire({
+                                        type: 'error',
+                                        title: 'Votre commande a rencontre un erreur.',
+                                        text: 'Veuillez contacter DREAM MAKER en lui transmettant le code ci-dessous.',
+                                        footer: response.id,
+                                    })
+                                }
+                            }
+                        });
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Une erreur est survenue sur votre commande.',
+                            text:  "Si vous pensez que c'est une erreur, veuillez contacter donc le bureau national."
+                        })
+                    }
+                })
+            });
+        });
+    </script>
+{% endblock %}
