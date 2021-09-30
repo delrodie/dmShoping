@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Album;
+use App\Entity\Commande;
 use App\Entity\Localite;
 use App\Entity\Precommande;
 use App\Form\PrecommandeType;
@@ -129,6 +130,18 @@ class PanierController extends AbstractController
 
         return $this->json($message);
 
+    }
+
+    /**
+     * @Route("/commande/impression/{reference}", name="panier_commande_impression", methods={"GET","POS"})
+     */
+    public function impression($reference)
+    {
+        $commande = $this->getDoctrine()->getRepository(Commande::class)->findOneBy(['reference'=>$reference]);
+
+        return $this->render('impression/facture_precommande.html.twig',[
+            'commande' => $commande,
+        ]);
     }
 
     /**

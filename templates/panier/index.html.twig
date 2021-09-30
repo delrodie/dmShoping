@@ -203,7 +203,7 @@
                                         cancelButtonText: 'Non, prochainement',
                                     }).then((result) => {
                                         if (result.value) {
-                                            window.location = "{{ absolute_url(path('app_home')) }}";
+                                            window.location = "impression/commande/" + paymentInfo.cpm_trans_id;
                                         } else {
                                             window.location.reload();
                                         }
