@@ -1,0 +1,116 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des precommandes{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 mt-5">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Gestion des precommandes</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+
+                            {% for label, messages in app.flashes(['success', 'warning']) %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ label }} alert-dismissible mg-b-0 fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+
+                            <h5 class="header-title mb-3 mt-0">Liste</h5>
+
+                            <div class="table-responsive mt-5">
+                                <table id="liste" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th class="border-top-0 text-center">#</th>
+                                        <th class="border-top-0 text-center">References</th>
+                                        <th class="border-top-0 text-center">Albums</th>
+                                        <th class="border-top-0 text-center">Nom</th>
+                                        <th class="border-top-0 text-center">Telephone</th>
+                                        <th class="border-top-0 text-center">Adresse</th>
+                                        <th class="border-top-0 text-center">Quantite</th>
+                                        <th class="border-top-0 text-center">Montant</th>
+                                        <th class="border-top-0 text-center">Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for precommande in precommandes %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            <td><a href="{{ path('backend_precommande_edit', {'id': precommande.id}) }}">{{ precommande.reference }}</a></td>
+                                            <td class="text-center">{{ precommande.album_titre }}</td>
+                                            <td>{{ precommande.nom }}</td>
+                                            <td class="text-center">{{ precommande.tel}}</td>
+                                            <td class="text-center">{{ precommande.adresse }}</td>
+                                            <td class="text-center">{{ precommande.quantite }}</td>
+                                            <td class="text-center">{{ precommande.montant|number_format(0,'',' ') }}</td>
+                                            <td class="text-center">{{ precommande.date|date('Y-m-d H:i:s') }}</td>
+
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/b-html5-1.7.1/datatables.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('/backoffice/plugins/dropify/css/dropify.min.css')) }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.3.1/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/datatables.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
+    <script src="{{ absolute_url(asset('/backoffice/plugins/dropify/js/dropify.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('/backoffice/js/upload-init.js')) }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#liste').DataTable({
+                //"ajax": "data.txt",
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+            });
+        } );
+    </script>
+{% endblock %}

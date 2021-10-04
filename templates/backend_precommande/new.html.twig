@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Precommande{% endblock %}
+
+{% block body %}
+    <h1>Create new Precommande</h1>
+
+    {{ include('backend_precommande/_form.html.twig') }}
+
+    <a href="{{ path('backend_precommande_index') }}">back to list</a>
+{% endblock %}

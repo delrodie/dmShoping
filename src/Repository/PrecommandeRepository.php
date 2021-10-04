@@ -19,6 +19,23 @@ class PrecommandeRepository extends ServiceEntityRepository
         parent::__construct($registry, Precommande::class);
     }
 
+    public function findByStatut($statut)
+    {
+        return $this
+            ->createQueryBuilder('p')
+            ->addSelect('a')
+            ->addSelect('ar')
+            ->addSelect('l')
+            ->leftJoin('p.album', 'a')
+            ->leftJoin('p.localite', 'l')
+            ->leftJoin('a.artiste', 'ar')
+            ->where('p.statusTransaction = :status')
+            ->setParameter('status', $statut)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()->getResult();
+
+    }
+
     // /**
     //  * @return Precommande[] Returns an array of Precommande objects
     //  */

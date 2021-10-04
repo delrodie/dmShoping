@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Precommande{% endblock %}
+
+{% block body %}
+    <h1>Edit Precommande</h1>
+
+    {{ include('backend_precommande/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('backend_precommande_index') }}">back to list</a>
+
+    {{ include('backend_precommande/_delete_form.html.twig') }}
+{% endblock %}

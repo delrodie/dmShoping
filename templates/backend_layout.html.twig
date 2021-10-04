@@ -139,7 +139,15 @@
                     </li>
                     {% if is_granted('ROLE_GESTION') %}
                         <li class="has-submenu ">
-                            <a href="#"><i class="mdi mdi-shopping-music"></i>Precommande</a>
+                            <a href="#"><i class="mdi mdi-shopping-music"></i>En Ligne</a>
+                            <ul class="submenu megamenu">
+                                <li>
+                                    <ul>
+                                        <li><a href="{{ path('backend_precommande_index') }}">Precommande</a></li>
+                                        <li><a href="#">Commande</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="has-submenu ">
