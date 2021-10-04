@@ -26,9 +26,8 @@ class BackendPrecommandeController extends AbstractController
     /**
      * @Route("/", name="backend_precommande_index", methods={"GET"})
      */
-    public function index(PrecommandeRepository $precommandeRepository): Response
+    public function index(): Response
     {
-        //dd($this->gestionCommande->precommandeListByStatut('UNKNOW'));
         return $this->render('backend_precommande/index.html.twig', [
             'precommandes' => $this->gestionCommande->precommandeListByStatut('UNKNOW'),
         ]);

@@ -19,6 +19,21 @@ class CommandeRepository extends ServiceEntityRepository
         parent::__construct($registry, Commande::class);
     }
 
+    public function findListAll()
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->addSelect('al')
+            ->addSelect('ar')
+            ->addSelect('l')
+            ->leftJoin('c.album', 'al')
+            ->leftJoin('al.artiste', 'ar')
+            ->leftJoin('c.localite', 'l')
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */

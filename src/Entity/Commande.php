@@ -93,6 +93,11 @@ class Commande
      */
     private $timeTransaction;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $livraison;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -284,5 +289,17 @@ class Commande
     public function setCreatedAtValue(): \DateTime
     {
         return $this->createdAt = new \DateTime();
+    }
+
+    public function getLivraison(): ?bool
+    {
+        return $this->livraison;
+    }
+
+    public function setLivraison(?bool $livraison): self
+    {
+        $this->livraison = $livraison;
+
+        return $this;
     }
 }

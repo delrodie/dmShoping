@@ -19,7 +19,7 @@ class PrecommandeType extends AbstractType
             ->add('nom', TextType::class,['attr'=>['class'=>'form-control form-control-sm', 'autocomplete'=>"off"]])
             ->add('tel', TelType::class,['attr'=>['class'=>'form-control form-control-sm', 'autocomplete'=>"off"]])
             ->add('adresse', TextType::class,['attr'=>['class'=>'form-control form-control-sm', 'autocomplete'=>"off"]])
-            ->add('email', EmailType::class,['attr'=>['class'=>'form-control form-control-sm', 'autocomplete'=>"off"]])
+            ->add('email', EmailType::class,['attr'=>['class'=>'form-control form-control-sm', 'autocomplete'=>"off"], 'required'=>false])
             //->add('quantite')
             //->add('montant')
             //->add('flag')
