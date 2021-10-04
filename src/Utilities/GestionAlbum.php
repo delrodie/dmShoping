@@ -266,4 +266,58 @@ class GestionAlbum
         return $result;
     }
 
+    /**
+     * @return array
+     */
+    public function albumListAll(): array
+    {
+        $lists = $this->albumRepository->findList();
+        $albums = []; $i=0;
+        foreach ($lists as $list){
+            $albums[$i++] = [
+                'titre' => $list->getTitre(),
+                'priVente' => $list->getPrixVente(),
+                'stock' => $list->getStock(),
+                'nonStock' => $list->getNonSticke(),
+                'sticke' => $list->getSticke(),
+                'distribue' => $list->getDistribue(),
+                'description' => $list->getDescription(),
+                'reference' => $list->getReference(),
+                'ecommerce' => $list->getEcommerce(),
+                'promotion' => $list->getPromotion(),
+                'genre' => $list->getGenre()->getLibelle(),
+                'artiste_nom' => $list->getArtiste()->getNom(),
+                'artiste_matricule' => $list->getArtiste()->getMatricule(),
+                'artiste_photo' => $list->getArtiste()->getMedia(),
+                'pochette' => $list->getPochette(),
+                'livraison' => $list->getFraisLivraison()
+            ];
+        }
+
+        return $albums;
+        
+    }
+
+    /**
+     * @return array|int[]
+     */
+    public function statistiques(): array
+    {
+        $lists = $this->albumRepository->findList();
+        $stock = 0; $sticke = 0; $non_sticke = 0; $distribue = 0; $i=0;
+        foreach ($lists as $list){
+            $stock = $stock + (int) $list->getStock();
+            $sticke = $sticke + (int) $list->getSticke();
+            $non_sticke =  $non_sticke + (int) $list->getNonSticke();
+            $distribue = $distribue + (int) $list->getDistribue();
+        }
+
+        return $statistiques=[
+            'stock' => $stock,
+            'sticke' => $sticke,
+            'non_sticke' => $non_sticke,
+            'distribue' => $distribue
+        ];
+    }
+
 }

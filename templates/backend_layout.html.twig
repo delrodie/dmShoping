@@ -116,7 +116,7 @@
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
-                                    <li><a href="#">Statistiques</a></li>
+                                    <li><a href="{{ path('backend_dashboard') }}">Statistiques</a></li>
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <li><a href="#">Google Analytics</a></li>
                                     {% endif %}

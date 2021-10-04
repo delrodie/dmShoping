@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-8 ml-auto align-self-center text-center">
                                     <div class="m-l-10 text-white float-right">
-                                        <h5 class="mt-0 round-inner">{{  1200|number_format(0,'','.') }}</h5>
+                                        <h5 class="mt-0 round-inner">{{  nombre_artiste|number_format(0,'','.') }}</h5>
                                         <p class="mb-0 ">Artistes</p>
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-8 text-center ml-auto align-self-center">
                                     <div class="m-l-10 text-white float-right">
-                                        <h5 class="mt-0 round-inner">{{  230|number_format(0,'','.') }}</h5>
+                                        <h5 class="mt-0 round-inner">{{  albums|length|number_format(0,'','.') }}</h5>
                                         <p class="mb-0 ">Albums</p>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-8 ml-auto align-self-center text-center">
                                     <div class="m-l-10 text-white float-right">
-                                        <h5 class="mt-0 round-inner">{{  2321|number_format(0,'','.') }}</h5>
+                                        <h5 class="mt-0 round-inner">{{  statistiques.stock|number_format(0,'','.') }}</h5>
                                         <p class="mb-0 ">CD</p>
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="col-8 ml-auto align-self-center text-center">
                                     <div class="m-l-10 text-white float-right">
-                                        <h5 class="mt-0 round-inner">{{  23|number_format(0,'','.') }}</h5>
+                                        <h5 class="mt-0 round-inner">{{  statistiques.sticke|number_format(0,'','.') }}</h5>
                                         <p class="mb-0">Stickes</p>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="col-8 ml-auto align-self-center text-center">
                                     <div class="m-l-10 text-white float-right">
-                                        <h5 class="mt-0 round-inner">{{ 34|number_format(0,'','.') }}</h5>
+                                        <h5 class="mt-0 round-inner">{{ statistiques.non_sticke|number_format(0,'','.') }}</h5>
                                         <p class="mb-0 ">Non Sticker</p>
                                     </div>
                                 </div>
@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="col-8 ml-auto align-self-center text-center">
                                     <div class="m-l-10 text-white float-right">
-                                        <h5 class="mt-0 round-inner">{{ 489|number_format(0,'','.') }}</h5>
+                                        <h5 class="mt-0 round-inner">{{ statistiques.distribue|number_format(0,'','.') }}</h5>
                                         <p class="mb-0">Vente</p>
                                     </div>
                                 </div>
@@ -296,12 +296,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><img class="rounded-circle" src="assets/images/users/avatar-2.jpg" alt="user" width="40"> </td>
-                                <td> <a href="javascript:void(0);">Ruby T. Curd</a></td>
-                                <td>Titre albums</td>
-                                <td>100</td>
-                            </tr>
+                            {% for album in albums %}
+                                <tr>
+                                    <td>
+                                        {% if album.artiste_photo %}
+                                            <img class="rounded-circle" src="{{ asset('upload/artistes/'~ album.artiste_photo) }}" alt="{{ album.artiste_nom }}" width="40">
+                                        {% else %}
+                                            <img class="rounded-circle" src="{{ absolute_url(asset('/backoffice/images/avatar.png')) }}" alt="{{ album.artiste_nom }}" width="40">
+                                        {% endif %}
+                                    </td>
+                                    <td> <a href="javascript:void(0);">{{ album.artiste_nom }}</a></td>
+                                    <td><span class="text-info">{{ album.titre }}</span></td>
+                                    <td class="text-center">{{ album.stock ? album.stock : '0' }}</td>
+                                </tr>
+                            {% endfor %}
+
                             </tbody>
                         </table>
                     </div>

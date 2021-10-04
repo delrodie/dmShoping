@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\AlbumRepository;
+use App\Repository\ArtisteRepository;
+use App\Utilities\GestionAlbum;
 use App\Utilities\GestionLog;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BackendDashboardController extends AbstractController
 {
+
+    private $artisteRepository;
+    private $albumRepository;
+    private $gestionAlbum;
+
+    public function __construct(ArtisteRepository $artisteRepository, AlbumRepository $albumRepository, GestionAlbum $gestionAlbum)
+    {
+        $this->artisteRepository = $artisteRepository;
+        $this->albumRepository = $albumRepository;
+        $this->gestionAlbum = $gestionAlbum;
+    }
     /**
      * @Route("/", name="backend_dashboard")
      */
@@ -23,7 +37,9 @@ class BackendDashboardController extends AbstractController
         $log->addLogger($str);
 
         return $this->render('backend_dashboard/index.html.twig', [
-            'controller_name' => 'BackendDashboardController',
+            'nombre_artiste' => count($this->artisteRepository->findAll()),
+            'albums' => $this->gestionAlbum->albumListAll(),
+            'statistiques' => $this->gestionAlbum->statistiques(),
         ]);
     }
 
