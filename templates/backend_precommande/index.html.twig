@@ -48,11 +48,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for precommande in precommandes %}
+                                    {% for precommande in precommandes|filter(precommande =>precommande.montant > 1000)  %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
                                             <td><a href="{{ path('backend_precommande_edit', {'id': precommande.id}) }}">{{ precommande.reference }}</a></td>
-                                            <td class="text-center">{{ precommande.album_titre }}</td>
+                                            <td class="">{{ precommande.album_titre }}</td>
                                             <td>{{ precommande.nom }}</td>
                                             <td class="text-center">{{ precommande.tel}}</td>
                                             <td class="text-center">{{ precommande.adresse }}</td>

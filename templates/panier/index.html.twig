@@ -79,7 +79,7 @@
                         </div>
                         <div class="form-group form-group-sm">
                             <label>Commune</label>
-                            <select name="panier_localite" id="panier_localite" class="form-control form-control-lg commune">
+                            <select name="panier_localite" id="panier_localite" class="form-control form-control-lg commune" required>
                                 <option value=""> -- </option>
                                 <optgroup label="Abidjan">
                                     {% for localite in localites|filter(localite => localite.regroupement == 'Abidjan') %}
