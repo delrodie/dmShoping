@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recouvrement{% endblock %}
+
+{% block body %}
+    <h1>Recouvrement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ recouvrement.id }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ recouvrement.reference }}</td>
+            </tr>
+            <tr>
+                <th>NumeroFactureDistributeur</th>
+                <td>{{ recouvrement.numeroFactureDistributeur }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ recouvrement.montant }}</td>
+            </tr>
+            <tr>
+                <th>Flag</th>
+                <td>{{ recouvrement.flag ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ recouvrement.createdAt ? recouvrement.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ recouvrement.updatedAt ? recouvrement.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('backend_recouvrement_index') }}">back to list</a>
+
+    <a href="{{ path('backend_recouvrement_edit', {'id': recouvrement.id}) }}">edit</a>
+
+    {{ include('backend_recouvrement/_delete_form.html.twig') }}
+{% endblock %}

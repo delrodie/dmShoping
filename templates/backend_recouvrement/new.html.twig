@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Recouvrement{% endblock %}
+
+{% block body %}
+    <h1>Create new Recouvrement</h1>
+
+    {{ include('backend_recouvrement/_form.html.twig') }}
+
+    <a href="{{ path('backend_recouvrement_index') }}">back to list</a>
+{% endblock %}

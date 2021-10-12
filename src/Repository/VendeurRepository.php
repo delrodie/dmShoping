@@ -24,6 +24,15 @@ class VendeurRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('v')->orderBy('v.nom', "ASC");
     }
 
+    public function listeDoit()
+    {
+        return $this
+            ->createQueryBuilder('v')
+            ->where('v.reste > 0')
+            ->orderBy('v.nom', 'ASC')
+        ;
+    }
+
     // /**
     //  * @return Vendeur[] Returns an array of Vendeur objects
     //  */

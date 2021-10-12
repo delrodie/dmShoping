@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-sm-12 mt-3">{{ form_row(form.vendeur) }}</div>
+    <div class="col-sm-12 mt-3">{{ form_row(form.numeroFactureDistributeur) }}</div>
+    <div class="col-sm-12 mt-3">{{ form_row(form.date) }}</div>
+    <div class="col-sm-12 mt-3">{{ form_row(form.montant) }}</div>
+</div>
+{{ form_widget(form) }}
+    <div class="text-right mt-5">
+        <input type="hidden" name="ancien_montant" value="{{ recouvrement.montant }}">
+        <a href="{{ path('backend_recouvrement_index') }}" class="btn btn-outline-secondary">Annuler</a>
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

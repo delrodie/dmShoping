@@ -96,7 +96,7 @@ class GestionFacture
      * @param bool|null $achat
      * @return bool
      */
-    public function vendeurFinance(object $vendeur, int $montant, bool $achat=null): bool
+    public function vendeurFinance(object $vendeur, int $montant, bool $achat=null, bool $recouvrement=null): bool
     {
         //variables
         $credit = (int) $vendeur->getCredit();
@@ -106,7 +106,11 @@ class GestionFacture
         if ($achat){
             $credit = $credit + $montant;
             $reste = $reste + $montant;
-        }else{
+        }elseif ($recouvrement){
+            $avance = $avance - $montant;
+            $reste = $reste + $montant;
+        }
+        else{
             $avance = $avance + $montant;
             $reste = $reste - $montant;
         }

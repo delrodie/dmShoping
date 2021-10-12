@@ -157,4 +157,11 @@ class Vendeur
 
         return $this;
     }
+
+    public function getVendeur()
+    {
+        $var = $this->nom.' ('.$this->reste.')';
+
+        return $var;
+    }
 }
