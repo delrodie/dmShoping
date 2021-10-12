@@ -56,7 +56,7 @@
                                             <td class="">{{ commande.album_titre }} ({{ commande.artiste_nom }})</td>
                                             <td>{{ commande.nom }}</td>
                                             <td class="text-center">{{ commande.tel}}</td>
-                                            <td class="">{{ commande.adresse }}</td>
+                                            <td class="">{{ commande.localite_lieu }} - {{ commande.adresse }}</td>
                                             <td class="text-center">{{ commande.quantite }}</td>
                                             <td class="text-center">{{ commande.montant|number_format(0,'',' ') }}</td>
                                             <td class="text-center">{{ commande.date|date('Y-m-d H:i:s') }}</td>

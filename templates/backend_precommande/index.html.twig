@@ -55,7 +55,7 @@
                                             <td class="">{{ precommande.album_titre }}</td>
                                             <td>{{ precommande.nom }}</td>
                                             <td class="text-center">{{ precommande.tel}}</td>
-                                            <td class="text-center">{{ precommande.adresse }}</td>
+                                            <td class="text-center">{{ precommande.localite_lieu }} - {{ precommande.adresse }}</td>
                                             <td class="text-center">{{ precommande.quantite }}</td>
                                             <td class="text-center">{{ precommande.montant|number_format(0,'',' ') }}</td>
                                             <td class="text-center">{{ precommande.date|date('Y-m-d H:i:s') }}</td>
