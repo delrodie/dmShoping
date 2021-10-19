@@ -53,6 +53,7 @@ class BackendVenteController extends AbstractController
 
             $montant = (int) $vente->getPu() * (int) $vente->getQuantite();
             $vente->setMontant($montant);
+			$vente->setReste($montant);
 
             $entityManager->persist($vente);
             $entityManager->flush();
@@ -60,6 +61,7 @@ class BackendVenteController extends AbstractController
             // Mise a jour du nombre de CD stickés
             // Mise a jour de la facture
             $this->gestionAlbum->toggleSticke($vente->getAlbum(),$vente->getQuantite());
+            $this->gestionAlbum->toggleDistribue($vente->getAlbum(), $vente->getQuantite(), true);
             $this->gestionFacture->operation($facture, $vente->getMontant(), true);
 
             return $this->redirectToRoute('backend_vente_index', ['reference'=>$facture->getReference()], Response::HTTP_SEE_OTHER);
@@ -109,20 +111,51 @@ class BackendVenteController extends AbstractController
     /**
      * @Route("/{id}/edit", name="backend_vente_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Vente $vente): Response
+    public function edit(Request $request, Vente $vente, VenteRepository $venteRepository): Response
     {
+		$facture = $vente->getFacture();
         $form = $this->createForm(VenteType::class, $vente);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+			$nouveauMontant = (int) $vente->getPu() * (int) $vente->getQuantite();
+			$nouvelleQuantite = (int) $vente->getQuantite();
+			
+			// Calcule d ela nouvelle valeur
+	        $ancienMontant = $request->get('ancien_montant');
+			$ancienneQuantite = $request->get('ancienne_quantite');
+			
+			if ($nouveauMontant !== $ancienMontant) {
+				$variable = $nouveauMontant - $ancienMontant;
+				$montant = (int) $vente->getMontant() + $variable;
+				$reste = (int) $vente->getReste() + $variable;
+				$vente->setMontant($montant);
+				$vente->setReste($reste);
+			}
+			
             $this->getDoctrine()->getManager()->flush();
+			
+			if ($ancienneQuantite !== $nouvelleQuantite){
+				$varQte = $nouvelleQuantite - $ancienneQuantite;
+				$quantite = (int)$vente->getQuantite() - $varQte;
+				
+				// Mise a jour du nombre de CD stickés
+				// Mise a jour de la facture
+				$this->gestionAlbum->toggleSticke($vente->getAlbum(),$quantite);
+				$this->gestionAlbum->toggleDistribue($vente->getAlbum(), $quantite, true);
+			}
+			if ($nouveauMontant !== $ancienMontant)
+	            $this->gestionFacture->operation($facture, $vente->getMontant(), true);
+	
 
-            return $this->redirectToRoute('backend_vente_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('backend_vente_index', ['reference'=>$facture->getReference()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('backend_vente/edit.html.twig', [
+	        'ventes' => $venteRepository->findBy(['facture'=>$facture->getId()]),
             'vente' => $vente,
             'form' => $form,
+	        'facture'=> $facture
         ]);
     }
 

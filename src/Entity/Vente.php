@@ -48,6 +48,16 @@ class Vente
      */
     private $album;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $avance;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $reste;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -132,4 +142,33 @@ class Vente
     {
         $this->createdAt = new \DateTime();
     }
+
+    public function getAvance(): ?int
+    {
+        return $this->avance;
+    }
+
+    public function setAvance(?int $avance): self
+    {
+        $this->avance = $avance;
+
+        return $this;
+    }
+
+    public function getReste(): ?int
+    {
+        return $this->reste;
+    }
+
+    public function setReste(?int $reste): self
+    {
+        $this->reste = $reste;
+
+        return $this;
+    }
+	
+	public function __toString()
+	{
+		return $this->getAlbum()->getTitre().' ('.$this->getReste().')';
+	}
 }

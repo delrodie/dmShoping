@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Entity\Encaissement;
 use App\Entity\Recouvrement;
 use App\Repository\RecouvrementRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -40,6 +41,25 @@ class GestionRecouvrement
 
         return $lists;
     }
+	
+	public function getEncaissementByRecouvrement($recouvrement)
+	{
+		$encaissements = $this->entityManager->getRepository(Encaissement::class)->findByRecouvrement($recouvrement);
+		$list=[]; $i=0;
+		foreach ($encaissements as $encaissement) {
+			$list[$i++]=[
+				'album' => $encaissement->getVente()->getAlbum()->getTitre(),
+				'prix_unitaire' => $encaissement->getVente()->getPu(),
+				'quantite' => $encaissement->getQuantite(),
+				'montant' => $encaissement->getMontant(),
+				'rap' => $encaissement->getRap(),
+				'qte_restant' => $encaissement->getQteRestant(),
+				'artiste' => $encaissement->getVente()->getAlbum()->getArtiste()->getNom()
+			];
+		}
+		
+		return $list;
+	}
 
     /**
      * Verification du solde restant après opération actuelle
@@ -76,4 +96,36 @@ class GestionRecouvrement
 
         return $reference;
     }
+	
+	/**
+	 * @param object $vente
+	 * @param int $montant
+	 * @return bool
+	 */
+	public function majVente(object $vente, int $montant): bool
+	{
+		$avance = (int) $vente->getAvance() + $montant;
+		$reste = (int) $vente->getReste() - $montant;
+		$vente->setAvance($avance);
+		$vente->setReste($reste);
+		
+		$this->entityManager->flush();
+		
+		return true;
+	}
+	
+	/**
+	 * @param object $recouvrement
+	 * @param int $montant
+	 * @return bool
+	 */
+	public function majRecouvrement(object $recouvrement, int $montant): bool
+	{
+		$reste = (int) $recouvrement->getRestant() - $montant;
+		$recouvrement->setRestant($reste);
+		
+		$this->entityManager->flush();
+		
+		return true;
+	}
 }

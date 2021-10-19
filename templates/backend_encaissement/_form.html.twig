@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-sm-12">{{ form_row(form.vente) }}</div>
+    <div class="col-sm-12">{{ form_row(form.montant) }}</div>
+</div>
+{{ form_widget(form) }}
+    <div class="text-right mt-5">
+        <a href="{{ path('backend_recouvrement_index') }}" class="btn btn-outline-secondary">Annuler</a>
+        <button class="btn btn-primary">{{ button_label|default('Ajouter') }}</button>
+    </div>
+{{ form_end(form) }}

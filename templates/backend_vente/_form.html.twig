@@ -6,6 +6,8 @@
 </div>
 {{ form_widget(form) }}
     <div class="text-right mt-5">
+        <input type="hidden" name="ancienne_quantite" value="{{ vente.quantite }}">
+        <input type="hidden" name="ancien_montant" value="{{ vente.montant }}">
         <a href="{{ path('backend_facture_index') }}" class="btn btn-outline-secondary">Annuler</a>
         <button class="btn btn-primary">{{ button_label|default('Ajouter') }}</button>
     </div>

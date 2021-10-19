@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Encaissement{% endblock %}
+
+{% block body %}
+    <h1>Encaissement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ encaissement.id }}</td>
+            </tr>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ encaissement.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ encaissement.montant }}</td>
+            </tr>
+            <tr>
+                <th>Rap</th>
+                <td>{{ encaissement.rap }}</td>
+            </tr>
+            <tr>
+                <th>QteRestant</th>
+                <td>{{ encaissement.qteRestant }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ encaissement.createdAt ? encaissement.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('backend_encaissement_index') }}">back to list</a>
+
+    <a href="{{ path('backend_encaissement_edit', {'id': encaissement.id}) }}">edit</a>
+
+    {{ include('backend_encaissement/_delete_form.html.twig') }}
+{% endblock %}

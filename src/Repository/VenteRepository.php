@@ -18,7 +18,28 @@ class VenteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Vente::class);
     }
-
+	
+	public function getListByVendeur($vendeur)
+	{
+		return $this
+			->createQueryBuilder('v')
+			->addSelect('a')
+			->addSelect('f')
+			->addSelect('ve')
+			->leftJoin('v.album', 'a')
+			->leftJoin('v.facture', 'f')
+			->leftJoin('f.vendeur', 've')
+			->where('ve.id = :vendeur')
+			->andWhere('v.reste > 0')
+			->orderBy('a.titre', 'ASC')
+			->setParameter('vendeur', $vendeur)
+			;
+	}
+	
+	/**
+	 * @param $facture
+	 * @return int|mixed|string
+	 */
     public function findByFacture($facture)
     {
         return $this

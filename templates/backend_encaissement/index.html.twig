@@ -1,6 +1,6 @@
 {% extends 'backend_layout.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion des factures{% endblock %}
+{% block title %}{{ parent() }} Gestion des recouvrements{% endblock %}
 
 {% block body %}
     <div class="wrapper">
@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-sm-12 mt-5">
                     <div class="page-title-box">
-                        <h4 class="page-title">Gestion des factures</h4>
+                        <h4 class="page-title">Gestion des recouvrements</h4>
                     </div>
                 </div>
             </div>
@@ -35,24 +35,24 @@
                                 <div class="col-sm-8 offset-sm-2">
                                     <div class="row">
                                         <div class="col-sm-6 mt-3">
-                                            <h5 class="header-title mt-0">Facture: <span style="color: darkred; font-weight:bold;">{{ facture.reference }}</span></h5>
+                                            <h5 class="header-title mt-0">Recouvrement: <span style="color: darkred; font-weight:bold;">{{ recouvrement.reference }}</span></h5>
                                         </div>
                                         <div class="col-sm-6 mt-3">
-                                            <h5 class="header-title mt-0">Montant HT: <span style="color: black; font-weight:bold;">{{ facture.montant|number_format('0','','.') }}</span> FCFA</h5>
+                                            <h5 class="header-title mt-0">Montant: <span style="color: black; font-weight:bold;">{{ recouvrement.montant|number_format('0','','.') }}</span> FCFA</h5>
                                         </div>
                                         <div class="col-sm-6 mt-3">
-                                            <h5 class="header-title mt-0">Vendeur: <span style="font-weight:bold;">{{ facture.vendeur.nom }}</span></h5>
+                                            <h5 class="header-title mt-0">Vendeur: <span style="font-weight:bold;">{{ recouvrement.vendeur.nom }}</span></h5>
                                         </div>
                                         <div class="col-sm-6 mt-3">
-                                            <h5 class="header-title mt-0">Montant TTC: <span style="color: black; font-weight:bold;">{{ facture.ttc|number_format('0','','.') }}</span> FCFA</h5>
+                                            <h5 class="header-title mt-0">Reste: <span style="color: black; font-weight:bold;">{{ recouvrement.restant|number_format('0','','.') }}</span> FCFA</h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {% if not facture.flag %}
+                            {% if not recouvrement.flag %}
                                 <div class="row">
                                     <div class="col-sm-12 text-right pr-5">
-                                        <button class="btn btn-primary" value="{{ facture.reference }}" id="validation">Valider</button>
+                                        <button class="btn btn-primary" value="{{ recouvrement.reference }}" id="validation">Valider</button>
                                     </div>
                                 </div>
                             {% endif %}
@@ -62,33 +62,31 @@
                                     <thead>
                                     <tr>
                                         <th class="border-top-0 text-center">#</th>
-                                        <th class="border-top-0 text-center">REF</th>
                                         <th class="border-top-0 text-center">ALBUMS</th>
                                         <th class="border-top-0 text-center">QUANTITE</th>
-                                        <th class="border-top-0 text-center">P. UNITAIRE</th>
                                         <th class="border-top-0 text-center">MONTANT</th>
+                                        <th class="border-top-0 text-center">RESTE A PAYER</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for vente in ventes %}
+                                    {% for encaissement in encaissements %}
                                         <tr>
                                             <td class="text-right pr-1">{{ loop.index }}</td>
-                                            <td class="text-center">{{ vente.album.reference }}</td>
                                             <td>
-                                            {% if facture.flag %}
-                                                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                                    <a href="{{ path('backend_vendeur_edit', {'id': vente.id}) }}" title="Modifier | Supprimer">{{ vente.album.titre }} ({{ vente.album.artiste.nom }})</a>
+                                                {% if recouvrement.flag %}
+                                                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                                        <a href="#" title="Modifier | Supprimer">{{ encaissement.vente.album.titre}} ({{ encaissement.vente.album.artiste.nom }})</a>
+                                                    {% else %}
+                                                        {{ encaissement.vente.album.titre}} ({{ encaissement.vente.album.nom }})
+                                                    {% endif %}
                                                 {% else %}
-                                                    {{ vente.album.titre }} ({{ vente.album.artiste.nom }})
+                                                    <a href="#" title="Modifier | Supprimer">{{ encaissement.vente.album.titre }} ({{ encaissement.vente.album.artiste.nom}})</a>
                                                 {% endif %}
-                                            {% else %}
-                                                    <a href="{{ path('backend_vente_edit', {'id': vente.id}) }}" title="Modifier | Supprimer">{{ vente.album.titre }} ({{ vente.album.artiste.nom }})</a>
-                                            {% endif %}
                                             </td>
 
-                                            <td class="text-center">{{ vente.quantite }}</td>
-                                            <td class="text-right pr-1">{{ vente.pu|number_format(0,'',' ') }}</td>
-                                            <td class="text-right pr-1">{{ vente.montant|number_format(0,'',' ') }}</td>
+                                            <td class="text-center">{{ encaissement.quantite }}</td>
+                                            <td class="text-right pr-1">{{ encaissement.montant|number_format(0,'',' ') }}</td>
+                                            <td class="text-right pr-1">{{ encaissement.rap|number_format(0,'',' ') }}</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -97,13 +95,13 @@
                         </div>
                     </div>
                 </div>
-                {% if not facture.flag %}
+                {% if not recouvrement.flag %}
                     <div class="col-sm-12 col-md-3">
                         <div class="card m-b-30">
                             <div class="card-body">
                                 <h5 class="header-title mb-3 mt-O">Enregistrement</h5>
                                 <div class="mt-5">
-                                    {{ include('backend_vente/_form.html.twig') }}
+                                    {{ include('backend_encaissement/_form.html.twig') }}
                                 </div>
                             </div>
                         </div>
@@ -156,12 +154,12 @@
             });
             $('.select2').select2();
 
-            // Validation de la facture
+            // Validation de la recouvrement
             $('#validation').on('click', function () {
                 let validation = $(this).val()
                 swal({
-                    title: "Validation de la facture",
-                    text: "Voulez-vous vraiment valider cette facture?",
+                    title: "Validation du recouvrement",
+                    text: "Voulez-vous vraiment valider ce recouvrement?",
                     icon: "warning",
                     buttons: {
                         cancel: "Annuler",
@@ -171,43 +169,43 @@
                         }
                     },
                 })
-                .then((value) => {
-                    if (!value){
-                        swal({
-                            title: "Annulation de la validation !",
-                            text: "Veuillez continuer d'ajouter des CD",
-                            icon: "success",
-                        });
-                    }
-                    return fetch(`/facturation/?reference=${validation}`);
-                    //$.get("/facturation/", {field: "reference", value: validation})
-                })
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (json){
-                    const reference = json.reference;
-
-                    if (!reference){
-                        return swal("Erreur de validation. Veuillez reprendre")
-                    }else{
-                        return swal("Facture validée avec succès!",{
-                            title: "Félicitations!",
-                            icon: "success",
-                            buttons:{
-                                cancel: "annuler",
-                                confirm: "Imprimer le BL"
-                            }
-                        })
                         .then((value) => {
                             if (!value){
-                                window.location = "/backend/facture/";
+                                swal({
+                                    title: "Annulation de la validation !",
+                                    text: "Veuillez continuer d'ajouter des encaissements",
+                                    icon: "success",
+                                });
+                            }
+                            return fetch(`/recouvrement/?reference=${validation}`);
+                            //$.get("/facturation/", {field: "reference", value: validation})
+                        })
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (json){
+                            const reference = json.reference;
+
+                            if (!reference){
+                                return swal("Erreur de validation. Veuillez reprendre")
                             }else{
-                                window.location = "/facturation/"+ validation
+                                return swal("recouvrement validé avec succès!",{
+                                    title: "Félicitations!",
+                                    icon: "success",
+                                    buttons:{
+                                        cancel: "annuler",
+                                        confirm: "Imprimer la facture"
+                                    }
+                                })
+                                        .then((value) => {
+                                            if (!value){
+                                                window.location = "/backend/recouvrement/";
+                                            }else{
+                                                window.location = "/recouvrement/"+ validation
+                                            }
+                                        })
                             }
                         })
-                    }
-                })
                 ;
             })
         } );

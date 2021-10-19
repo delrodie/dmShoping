@@ -222,6 +222,25 @@ class GestionAlbum
         return true;
     }
 
+    /**
+     * @param object $album
+     * @param int $qte
+     * @param bool|null $vente
+     * @return bool
+     */
+    public function toggleDistribue(object $album, int $qte, bool $vente=null): bool
+    {
+        if ($vente)
+            $distribue = (int) $album->getDistribue() + $qte;
+        else
+            $distribue = (int) $album->getDistribue() - $qte;
+
+        $album->setDistribue($distribue);
+        $this->entityManager->flush();
+
+        return true;
+    }
+
     public function albumListDestickage()
     {
         $stickages = $this->destockageRepository->findListDestockage();
