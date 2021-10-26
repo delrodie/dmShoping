@@ -52,9 +52,9 @@
                                             <td class="text-center">{{ vendeur.code }}</td>
                                             <td><a href="{{ path('backend_vendeur_edit', {'id': vendeur.id}) }}">{{ vendeur.nom }}</a></td>
                                             <td class="text-center">{{ vendeur.contact }}</td>
-                                            <td class="text-center">{{ vendeur.credit ? vendeur.credit|number_format(0,'',' ') : '0' }}</td>
-                                            <td class="text-center">{{ vendeur.payer ? vendeur.payer|number_format(0,'',' ') : '0' }}</td>
-                                            <td class="text-center">{{ vendeur.reste ? vendeur.reste|number_format(0,'',' ') : '0' }}</td>
+                                            <td class="text-center">{{ vendeur.credit ? vendeur.credit : '0' }}</td>
+                                            <td class="text-center">{{ vendeur.payer ? vendeur.payer : '0' }}</td>
+                                            <td class="text-center">{{ vendeur.reste ? vendeur.reste : '0' }}</td>
                                             <td class="text-center">-</td>
                                         </tr>
                                     {% endfor %}

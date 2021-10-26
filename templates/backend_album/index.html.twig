@@ -53,17 +53,19 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {% set stock=0 %}
                                     {% for album in albums %}
                                         <tr>
+                                            {% set stock = album.stock - album.distribue %}
                                             <td>{{ loop.index }}</td>
                                             <td class="text-center">{{ album.reference }}</td>
                                             <td>{{ album.artiste.nom }}</td>
                                             <td><a href="{{ path('backend_album_edit', {'id': album.id}) }}">{{ album.titre }}</a></td>
-                                            <td class="text-center">{{ album.prixVente|number_format(0,'','.') }}</td>
+                                            <td class="text-center">{{ album.prixVente }}</td>
                                             <td class="text-center">{{ album.nonSticke ? album.nonSticke : '0' }}</td>
                                             <td class="text-center">{{ album.sticke ? album.sticke : '0' }}</td>
                                             <td class="text-center">{{ album.distribue ? album.distribue : '0' }}</td>
-                                            <td class="text-center">{{ album.stock ? album.stock : '0' }}</td>
+                                            <td class="text-center">{{ stock }}</td>
                                             <td class="text-center">
                                                 {{ album.fraisLivraison ? '<span class="badge badge-info">AVEC FRAIS</span>' : '<span class="badge badge-warning">SANS FRAIS</span>' }}
                                             </td>

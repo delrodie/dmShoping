@@ -53,9 +53,9 @@
                                             <td class="text-center">{{ list.date }}</td>
                                             <td class="text-center"><a href="{{ path('backend_facture_edit', {'id': list.id}) }}">{{ list.reference }}</a></td>
                                             <td class="text-center">{{ list.vendeur }}</td>
-                                            <td class="text-right">{{ list.montant|number_format(0,'',' ') }}</td>
+                                            <td class="text-right">{{ list.montant}}</td>
                                             <td class="text-center">{{ list.TVA ? '<span class="badge badge-info">OUI</span>' : '<span class="badge badge-warning">NON</span>' }}</td>
-                                            <td class="text-right">{{ list.TTC|number_format(0,'',' ') }}</td>
+                                            <td class="text-right">{{ list.TTC }}</td>
                                             <td class="text-center">{{ list.flag ? '<span class="badge badge-success">ACHEVEE</span>' : '<span class="badge badge-danger">INACHEVEE</span>' }}</td>
                                             <td class="text-center">
                                                 {% if not list.flag %}
