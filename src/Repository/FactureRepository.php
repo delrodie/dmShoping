@@ -29,6 +29,19 @@ class FactureRepository extends ServiceEntityRepository
             ->getQuery()->getResult()
             ;
     }
+	
+	public function getTotalMois($periode)
+	{
+		return $this->createQueryBuilder('f')
+			->select('SUM(f.ttc)')
+			->where('f.date BETWEEN :debut AND :fin')
+			->setParameters([
+				'debut' => $periode['debut'],
+				'fin' => $periode['fin']
+			])
+			->getQuery()->getSingleScalarResult()
+			;
+	}
 
     // /**
     //  * @return Facture[] Returns an array of Facture objects

@@ -29,6 +29,19 @@ class RecouvrementRepository extends ServiceEntityRepository
             ->getQuery()->getResult()
             ;
     }
+	
+	public function getTotalMois($periode)
+	{
+		return $this->createQueryBuilder('r')
+			->select('SUM(r.montant)')
+			->where('r.date BETWEEN :debut AND :fin')
+			->setParameters([
+				'debut' => $periode['debut'],
+				'fin' => $periode['fin']
+			])
+			->getQuery()->getSingleScalarResult()
+			;
+	}
 
     // /**
     //  * @return Recouvrement[] Returns an array of Recouvrement objects

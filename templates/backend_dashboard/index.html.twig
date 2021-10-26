@@ -135,77 +135,18 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-xl-5">
+                <div class="col-sm-12 col-md-8 col-xl-9">
                     <div class="card m-b-30">
                         <div class="card-body metro-widget">
                             <h5 class="header-title mt-0 pb-3">Statistics</h5>
-                            <div id="morris-bar-example"></div>
-                            <div class="row text-center d-flex justify-content-around">
-                                <div class="col-4">
-                                    <p class="mb-0 font-14">New Orders</p>
-                                    <div class="live-tile m-0 w-100" data-mode="carousel" data-direction="horizontal" data-delay="3900" data-height="10">
-                                        <div>
-                                            <small class="text-muted"> today</small>
-                                            <h3 class=" text-dark">1,088
-                                                <small>
-                                                    <i class="mdi mdi-menu-down text-danger"></i>
-                                                </small>
-                                            </h3>
-                                        </div>
-                                        <div>
-                                            <small class="text-muted">yesterday</small>
-                                            <h3 class="text-dark">1,420
-                                                <small>
-                                                    <i class="mdi mdi-menu-up text-success"></i>
-                                                </small>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <p class="mb-0 font-14">Visits</p>
-                                    <div class="live-tile m-0 w-100" data-mode="carousel" data-direction="vertical" data-delay="3500" data-height="10">
-                                        <div>
-                                            <small class="text-muted"> today</small>
-                                            <h3 class=" text-dark">1,955</h3>
-                                        </div>
-                                        <div>
-                                            <small class="text-muted">yesterday</small>
-                                            <h3 class="text-dark">2,091</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <p class="mb-0 font-14">Bounce Rate</p>
-                                    <div class="live-tile m-0 w-100" data-mode="carousel" data-direction="vertical" data-delay="4200" data-height="10">
-                                        <div>
-                                            <small class="text-muted">Minmum</small>
-                                            <h3 class=" text-dark">3.8 %
-                                                <small>
-                                                    <i class="mdi mdi-menu-up text-success"></i>
-                                                </small>
-                                            </h3>
-                                        </div>
-                                        <div>
-                                            <small class="text-muted">Maximum</small>
-                                            <h3 class="text-dark">7.1 %
-                                                <small>
-                                                    <i class="mdi mdi-menu-down text-danger"></i>
-                                                </small>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                            <canvas id="myChart" height="100"></canvas>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-xl-7">
+                <div class="col-md-4 col-xl-3">
                     <div class="card m-b-30">
                         <div class="card-body">
                             <h5 class="header-title mt-0 pb-3">Revenue </h5>
-                            <div id="morris-area-chart"></div>
                         </div>
                     </div>
                 </div>
@@ -217,64 +158,28 @@
         <div class="col-md-12 col-xl-6">
             <div class="card m-b-30">
                 <div class="card-body">
-                    <h5 class="header-title mb-3 mt-0">CD mis en vente</h5>
+                    <h5 class="header-title mb-3 mt-0">Dernières ventes</h5>
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <thead>
                             <tr>
-                                <th class="border-top-0 w-60">Pochettes</th>
-                                <th class="border-top-0">Artistes</th>
-                                <th class="border-top-0">Titres</th>
-                                <th class="border-top-0">Nombre</th>
+                                <th class="border-top-0">Dates</th>
+                                <th class="border-top-0">References</th>
+                                <th class="border-top-0">Vendeurs</th>
+                                <th class="border-top-0">Albums</th>
                                 <th class="border-top-0">Montant</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
-                                    <img class="" src="assets/images/products/pro1.png" alt="user" width="40"> </td>
-                                <td>
-                                    NOm artistes
-                                </td>
-                                <td>
-                                    <span class="badge badge-boxed  badge-success">Titre album</span>
-                                </td>
-                                <td>2</td>
-                                <td> $ 50</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img class="" src="assets/images/products/pro1.png" alt="user" width="40"> </td>
-                                <td>
-                                    NOm artistes
-                                </td>
-                                <td>
-                                    <span class="badge badge-boxed  badge-success">Titre album</span>
-                                </td>
-                                <td>2</td>
-                                <td> $ 50</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img class="" src="assets/images/products/pro1.png" alt="user" width="40"> </td>
-                                <td>
-                                    NOm artistes
-                                </td>
-                                <td>
-                                    <span class="badge badge-boxed  badge-success">Titre album</span>
-                                </td>
-                                <td>2</td>
-                                <td> $ 50</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img class="" src="assets/images/products/pro1.png" alt="user" width="40"> </td>
-                                <td> NOm artistes</td>
-                                <td><span class="badge badge-boxed  badge-success">Titre album</span></td>
-                                <td>2</td>
-                                <td> $ 50</td>
-                            </tr>
-
+                            {% for facture in factures|slice(0,6) %}
+                                <tr>
+                                    <td>{{ facture.date|date('d-m-Y') }}</td>
+                                    <td>{{ facture.reference }}</td>
+                                    <td>{{ facture.vendeur }}</td>
+                                    <td class="text-center">{{ facture.nombre_vente }}</td>
+                                    <td class="text-right"> {{ facture.TTC|number_format(0,'','.') }}</td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -296,7 +201,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for album in albums %}
+                            {% for album in albums|slice(0,4) %}
                                 <tr>
                                     <td>
                                         {% if album.artiste_photo %}
@@ -321,10 +226,44 @@
 {% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('backoffice/plugins/carousel/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backoffice/plugins/carousel/owl.theme.default.min.css') }}">
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('backoffice/plugins/carousel/owl.carousel.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [ {% for vente in ventes %}'{{ vente.libelle }}',{% endfor %}],
+                datasets: [
+                        {
+                    label: 'Depot',
+                    data: [{% for vente in ventes %}{{ vente.montant ? vente.montant : 0 }},{% endfor %}],
+                    backgroundColor: ['rgba(54, 162, 235, 0.4)',],
+                    borderColor: ['rgba(54, 162, 235, 1)',],
+                    borderWidth: 1
+                },
+                        {
+                    label: 'Recouvrement',
+                    data: [{% for encaissement in encaissements %}{{ encaissement.montant ? encaissement.montant : 0 }},{% endfor %}],
+                    backgroundColor: ['rgb(194,6,6)',],
+                    borderColor: ['rgba(194,6,6)',],
+                    borderWidth: 2,
+                    type: 'line'
+                }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
 {% endblock %}

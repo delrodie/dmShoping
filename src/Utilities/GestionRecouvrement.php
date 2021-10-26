@@ -60,6 +60,27 @@ class GestionRecouvrement
 		
 		return $list;
 	}
+	
+	public function totalParMois()
+	{
+		$dates = [
+			1=>['Jan','01'],2=>['Fev','02'],3=>['Mars','03'],
+			4=>['Avril','04'],5=>['Mai','05'],6=>['Juin','06'],
+			7=>['Juil','07'],8=>['Aout','08'],9=>['Sept','09'],
+			10=>['Oct','10'],11=>['Nov','11'],12=>['Dec','12']
+		];
+		$mois=[]; $annee = date('Y'); $periode=[];
+		foreach ($dates as $date){
+			$debut = $annee.'-'.$date[1].'-'.'00';
+			$fin = $annee.'-'.$date[1].'-'.'32';
+			$periode = ['debut'=>$debut, 'fin'=>$fin];
+			$mois[$date[0]] = [
+				'libelle' => $date[0],
+				'montant' => $this->entityManager->getRepository(Recouvrement::class)->getTotalMois($periode)
+			];
+		}
+		return $mois;
+	}
 
     /**
      * Verification du solde restant après opération actuelle

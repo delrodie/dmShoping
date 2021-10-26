@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Repository\AlbumRepository;
 use App\Repository\ArtisteRepository;
 use App\Utilities\GestionAlbum;
+use App\Utilities\GestionFacture;
 use App\Utilities\GestionLog;
+use App\Utilities\GestionRecouvrement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,12 +22,22 @@ class BackendDashboardController extends AbstractController
     private $artisteRepository;
     private $albumRepository;
     private $gestionAlbum;
-
-    public function __construct(ArtisteRepository $artisteRepository, AlbumRepository $albumRepository, GestionAlbum $gestionAlbum)
+	private $_facture;
+	private $_recouvrement;
+	
+	public function __construct(
+		ArtisteRepository $artisteRepository,
+		AlbumRepository $albumRepository,
+		GestionAlbum $gestionAlbum,
+		GestionFacture $_facture,
+		GestionRecouvrement $_recouvrement
+	)
     {
         $this->artisteRepository = $artisteRepository;
         $this->albumRepository = $albumRepository;
         $this->gestionAlbum = $gestionAlbum;
+	    $this->_facture = $_facture;
+	    $this->_recouvrement = $_recouvrement;
     }
     /**
      * @Route("/", name="backend_dashboard")
@@ -40,6 +52,9 @@ class BackendDashboardController extends AbstractController
             'nombre_artiste' => count($this->artisteRepository->findAll()),
             'albums' => $this->gestionAlbum->albumListAll(),
             'statistiques' => $this->gestionAlbum->statistiques(),
+	        'factures' => $this->_facture->factureList(),
+	        'ventes' => $this->_facture->totalParMois(),
+	        'encaissements' => $this->_recouvrement->totalParMois()
         ]);
     }
 

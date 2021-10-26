@@ -33,12 +33,34 @@ class GestionFacture
                 'TTC' => $facture->getTTC(),
                 'reference' => $facture->getReference(),
                 'flag' => $facture->getFlag(),
-                'date' => $facture->getDate()
+                'date' => $facture->getDate(),
+	            'nombre_vente' => count($facture->getVentes())
             ];
         }
 
         return $lists;
     }
+	
+	public function totalParMois(): array
+	{
+		$dates = [
+			1=>['Jan','01'],2=>['Fev','02'],3=>['Mars','03'],
+			4=>['Avril','04'],5=>['Mai','05'],6=>['Juin','06'],
+			7=>['Juil','07'],8=>['Aout','08'],9=>['Sept','09'],
+			10=>['Oct','10'],11=>['Nov','11'],12=>['Dec','12']
+		];
+		$mois=[]; $annee = date('Y'); $periode=[];
+		foreach ($dates as $date){
+			$debut = $annee.'-'.$date[1].'-'.'00';
+			$fin = $annee.'-'.$date[1].'-'.'32';
+			$periode = ['debut'=>$debut, 'fin'=>$fin];
+			$mois[$date[0]] = [
+				'libelle' => $date[0],
+				'montant' => $this->entityManager->getRepository(Facture::class)->getTotalMois($periode)
+			];
+		}
+		return $mois;
+	}
 
     /**
      * Generation de la reference de la facture
