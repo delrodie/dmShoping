@@ -77,7 +77,7 @@
                                             <td>
                                             {% if facture.flag %}
                                                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                                    <a href="{{ path('backend_vendeur_edit', {'id': vente.id}) }}" title="Modifier | Supprimer">{{ vente.album.titre }} ({{ vente.album.artiste.nom }})</a>
+                                                    <a href="{{ path('backend_vente_edit', {'id': vente.id}) }}" title="Modifier | Supprimer">{{ vente.album.titre }} ({{ vente.album.artiste.nom }})</a>
                                                 {% else %}
                                                     {{ vente.album.titre }} ({{ vente.album.artiste.nom }})
                                                 {% endif %}

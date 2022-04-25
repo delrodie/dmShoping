@@ -53,6 +53,23 @@ class VenteRepository extends ServiceEntityRepository
             ->getQuery()->getResult()
             ;
     }
+	
+	/**
+	 * @param $album
+	 * @return float|int|mixed|string
+	 */
+	public function findByAlbum($album)
+	{
+		return $this->createQueryBuilder('v')
+			->addSelect('a')
+			->addSelect('f')
+			->leftJoin('v.album', 'a')
+			->leftJoin('v.facture', 'f')
+			->where('a.id = :album')
+			->setParameter('album', $album)
+			->getQuery()->getResult()
+			;
+	}
 
     // /**
     //  * @return Vente[] Returns an array of Vente objects

@@ -121,7 +121,7 @@ class BackendVenteController extends AbstractController
 			$nouveauMontant = (int) $vente->getPu() * (int) $vente->getQuantite();
 			$nouvelleQuantite = (int) $vente->getQuantite();
 			
-			// Calcule d ela nouvelle valeur
+			// Calcule de la nouvelle valeur
 	        $ancienMontant = $request->get('ancien_montant');
 			$ancienneQuantite = $request->get('ancienne_quantite');
 			
@@ -160,17 +160,28 @@ class BackendVenteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="backend_vente_delete", methods={"POST"})
+     * @Route("/{id}/gtf/yhtf", name="backend_vente_delete", methods={"POST"})
      */
     public function delete(Request $request, Vente $vente): Response
     {
+		$reference = $vente->getFacture()->getReference();
+		
         if ($this->isCsrfTokenValid('delete'.$vente->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->getDoctrine()->getManager(); //dd($vente);
             $entityManager->remove($vente);
             $entityManager->flush();
+	
+	        // Mise a jour du nombre de CD stickés
+	        // Mise a jour de la facture
+	        $this->gestionAlbum->toggleSticke($vente->getAlbum(),$vente->getQuantite(), true);
+	        $this->gestionAlbum->toggleDistribue($vente->getAlbum(), $vente->getQuantite());
+			
+			//
         }
 
-        return $this->redirectToRoute('backend_vente_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('backend_vente_index', [
+			'reference' => $reference
+        ], Response::HTTP_SEE_OTHER);
     }
 
     /**

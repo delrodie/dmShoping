@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Album;
+use App\Entity\Vente;
 use App\Form\AlbumType;
 use App\Repository\AlbumRepository;
 use App\Utilities\GestionAlbum;
@@ -90,12 +91,13 @@ class BackendAlbumController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="backend_album_show", methods={"GET"})
+     * @Route("/{slug}", name="backend_album_show", methods={"GET"})
      */
     public function show(Album $album): Response
     {
         return $this->render('backend_album/show.html.twig', [
             'album' => $album,
+	        'ventes' => $this->getDoctrine()->getRepository(Vente::class)->findByAlbum($album->getId())
         ]);
     }
 

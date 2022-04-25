@@ -50,6 +50,7 @@
                                         <th class="border-top-0 text-center">Distribués</th>
                                         <th class="border-top-0 text-center">Stock</th>
                                         <th class="border-top-0 text-center">Livraison</th>
+                                        <th class="border-top-0 text-center">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -68,6 +69,9 @@
                                             <td class="text-center">{{ stock }}</td>
                                             <td class="text-center">
                                                 {{ album.fraisLivraison ? '<span class="badge badge-info">AVEC FRAIS</span>' : '<span class="badge badge-warning">SANS FRAIS</span>' }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ path('backend_album_show', {'slug': album.slug}) }}"><i class="fa fa-list"></i></a>
                                             </td>
 
                                         </tr>
